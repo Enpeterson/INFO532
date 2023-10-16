@@ -1,0 +1,12 @@
+name: info532main
+title: INFO532Main
+username: epeterson_2010
+account: epeterson_2010
+server: bookdown.org
+hostUrl: https://bookdown.org/__api__
+appId: 13179
+bundleId:
+url: https://bookdown.org/epeterson_2010/info532main/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE

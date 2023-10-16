@@ -1,0 +1,22 @@
+bookdown::bs4_book:
+  theme:
+    primary: "#006400"  # "#637238" - original green,  "#940128" - burgundy, 
+  css: style.css
+  split_by: "chapter"
+  repo:
+    base: https://github.com/Enpeterson/INFO532
+
+    download: ["pdf", "epub"]
+bookdown::pdf_book:
+  toc: true
+  toc_depth: 3
+  number_sections: true
+  fig_width: 7
+  fig_height: 6
+  fig_caption: true
+  includes:
+    in_header: preamble.tex
+  latex_engine: xelatex
+  citation_package: natbib
+  keep_tex: yes
+

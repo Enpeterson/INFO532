@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Module 3 Data Wrangling | INFO 532: Advanced GIS</title>
+<meta name="author" content="Emily Peterson &amp; Alex Edwards">
+<meta name="description" content="In this chapter we summarize the various packages and functions that can be used to manipulate and map spatial data in R. Note: We reference R documentation to each package below. Click on the...">
+<meta name="generator" content="bookdown 0.35 with bs4_book()">
+<meta property="og:title" content="Module 3 Data Wrangling | INFO 532: Advanced GIS">
+<meta property="og:type" content="book">
+<meta property="og:description" content="In this chapter we summarize the various packages and functions that can be used to manipulate and map spatial data in R. Note: We reference R documentation to each package below. Click on the...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Module 3 Data Wrangling | INFO 532: Advanced GIS">
+<meta name="twitter:description" content="In this chapter we summarize the various packages and functions that can be used to manipulate and map spatial data in R. Note: We reference R documentation to each package below. Click on the...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.1/transition.js"></script><script src="libs/bs3compat-0.4.1/tabs.js"></script><script src="libs/bs3compat-0.4.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">INFO 532: Advanced GIS</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">INFO 532: Advanced Geographic Information Systems Fall 2023</a></li>
+<li><a class="" href="introduction-to-gis.html"><span class="header-section-number">1</span> Introduction to GIS</a></li>
+<li><a class="" href="intro.html"><span class="header-section-number">2</span> Introduction to R</a></li>
+<li><a class="active" href="lecture3.html"><span class="header-section-number">3</span> Data Wrangling</a></li>
+<li><a class="" href="lecture4.html"><span class="header-section-number">4</span> Basic GIS Operations</a></li>
+<li><a class="" href="introduction-to-raster-in-r.html"><span class="header-section-number">5</span> Introduction to Raster in R</a></li>
+<li><a class="" href="introduction-to-kernel-density-estimation.html"><span class="header-section-number">6</span> Introduction to Kernel Density Estimation</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/Enpeterson/INFO532">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture3" class="section level1" number="3">
+<h1>
+<span class="header-section-number">Module 3</span> Data Wrangling<a class="anchor" aria-label="anchor" href="#lecture3"><i class="fas fa-link"></i></a>
+</h1>
+<p>In this chapter we summarize the various packages and functions that can be used to manipulate and map spatial data in R.</p>
+<p>Note: We reference R documentation to each package below. Click on the package name highlighted in blue to review the CRAN and help documentation for each package.</p>
+<div id="introduction-to-dplyr" class="section level2" number="3.1">
+<h2>
+<span class="header-section-number">3.1</span> Introduction to DPLYR<a class="anchor" aria-label="anchor" href="#introduction-to-dplyr"><i class="fas fa-link"></i></a>
+</h2>
+<p>The <a href="https://cran.r-project.org/web/packages/dplyr/dplyr.pdf"><em>dplyr</em></a> package is part of the <a href="https://www.tidyverse.org/packages/"><em>tidyverse</em></a> (a collection of R packages) and provides a suite of tools for manipulating and summarizing data tables and spatial data. It contains a number of functions for data transformations. DPLYR tools can be in a piping syntax that allows for a sequence of functions to happen at the same time. Think of <em>dplyr</em> functions as transformation spells that transform data from one thing to another.</p>
+<div class="rmdnote">
+<p>Here are a few useful functions:</p>
+<ul>
+<li>
+<em>select(c())</em>: selects the subset of specified columns and reorders them vertically.</li>
+<li>
+<em>filter()</em>: selects a subset of rows in a data frame based on user defined conditional statements.</li>
+<li>
+<em>mutate()</em>: creates and adds new columns based on a given set of operations.</li>
+<li>
+<em>recode()</em>: recodes a current column into a different columns based on a set of operations.</li>
+<li>
+<em>arrange()</em>: changes order of rows according to the columns specified.</li>
+<li>
+<em>desc()</em>: orders a column in descending order.</li>
+<li>
+<em>summarize()</em>: summarizes values with function that are passed, i.e., mean, max.</li>
+<li>
+<em>group_by()</em>: groups values for a given category.</li>
+<li>
+<em>full_join, right_join, left_join</em>: Merges data set based on either joining all or a subset of observations.</li>
+</ul>
+</div>
+<p>The <em>dplyr</em> functions take a data frame as the first argument and layers functions using what we refer to as piping operator <span class="math inline">\(%&gt;%\)</span>. It condenses many lines of code into a single chunk. To illustrate <em>dplyr</em> tools, we use the flights data set that is available from <em>dplyr</em>.</p>
+<p>First we must install the R packages if they have not be already installed.</p>
+<p>Next we call the <em>tidyverse</em> and <em>dplyr</em> packages</p>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Call libraries</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># To explore more of dplyr documentation and examples use code below.</span></span>
+<span><span class="co">#vignette("dplyr", package = "dplyr")</span></span></code></pre></div>
+<p>Next we read in the Air Passengers data using the <span class="math inline">\(data()\)</span> call function. This data records monthly totals of the number of international airline passengers from 1949-1960. Using the <em>class()</em> function, you can see what type of R object. This R object is a time-series (ts) and needs to be converted to a data frame.</p>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#Read in the starwars data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"AirPassengers"</span><span class="op">)</span></span>
+<span><span class="co">#Determine the type of R object</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span></span></code></pre></div>
+<pre><code>[1] "ts"</code></pre>
+<p>We transform the time series into a data frame with the below commands. The rows are the different years and the columns are months Jan-Dec.</p>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#Transform the time series data into a data frame</span></span>
+<span><span class="va">air_passengers_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="va">AirPassengers</span>, ncol <span class="op">=</span> <span class="fl">12</span>, nrow <span class="op">=</span> <span class="fl">12</span>, byrow <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">air_passengers_df</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">1949</span><span class="op">:</span><span class="fl">1960</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">air_passengers_df</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Jan"</span>, <span class="st">"Feb"</span>, <span class="st">"Mar"</span>, <span class="st">"Apr"</span>, <span class="st">"May"</span>,</span>
+<span>                                 <span class="st">"Jun"</span>, <span class="st">"Jul"</span>, <span class="st">"Aug"</span>, <span class="st">"Sep"</span>, <span class="st">"Oct"</span>,</span>
+<span>                                 <span class="st">"Nov"</span>, <span class="st">"Dev"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">air_passengers_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">air_passengers_df</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">air_passengers_df</span><span class="op">)</span></span></code></pre></div>
+<pre><code>     Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dev
+1949 112 118 132 129 121 135 148 148 136 119 104 118
+1950 115 126 141 135 125 149 170 170 158 133 114 140
+1951 145 150 178 163 172 178 199 199 184 162 146 166
+1952 171 180 193 181 183 218 230 242 209 191 172 194
+1953 196 196 236 235 229 243 264 272 237 211 180 201
+1954 204 188 235 227 234 264 302 293 259 229 203 229</code></pre>
+<div class="rmdnote">
+<p><strong>What is piping?</strong>
+A piping syntax allows us to manipulate/mutate the data using a sequence of transformations, i.e., operations are chained together. The pipeline operator is denoted using %&gt;%.</p>
+</div>
+<p>For example, in many cases we need to switch from wide data to long data or vice-versa. In this case, we want a monthly count as a unique row, so we want to transform this data from wide (going across columns) to long (going down rows).</p>
+<p><em>Sequence of operations</em>:</p>
+<ul>
+<li>Create a year variable in the data because we want each row to be a unique month-year combination. The <span class="math inline">\(rownames()\)</span> function extracts the names of each row (i.e., the year corresponding to the row). The <span class="math inline">\(as.numeric()\)</span> function turns characters into numbers.</li>
+</ul>
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">air_passengers_df</span><span class="op">$</span><span class="va">year</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">air_passengers_df</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<ul>
+<li>Create a new data set called <em>air_passengers_long</em> and assign &lt;- it to the old data set.</li>
+<li>Use the <em>gather()</em> function from the <em>tidyr</em> package to convert the data to long.</li>
+</ul>
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">air_passengers_long</span> <span class="op">&lt;-</span> <span class="va">air_passengers_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/gather.html">gather</a></span><span class="op">(</span>key<span class="op">=</span> <span class="st">"Month"</span>, value <span class="op">=</span> <span class="st">"count"</span>, <span class="op">-</span><span class="va">year</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">air_passengers_long</span><span class="op">)</span></span></code></pre></div>
+<pre><code>  year Month count
+1 1949   Jan   112
+2 1950   Jan   115
+3 1951   Jan   145
+4 1952   Jan   171
+5 1953   Jan   196
+6 1954   Jan   204</code></pre>
+<p>If we want to filter the data to only include the month of January, we use the first line of code. If we want to filter to Jan and the year is greater than 1955, we can use the second line of code.</p>
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#Use the filter function to subset only to data for Jan.</span></span>
+<span><span class="va">jan_only_df</span> <span class="op">&lt;-</span> <span class="va">air_passengers_long</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Month</span> <span class="op">==</span> <span class="st">"Jan"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#Use the filter function to subset only to data for Jan AND for years &gt; 1955</span></span>
+<span><span class="va">jan1955_only_df</span> <span class="op">&lt;-</span> <span class="va">air_passengers_long</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Month</span> <span class="op">==</span> <span class="st">"Jan"</span> <span class="op">&amp;</span> <span class="va">year</span> <span class="op">&gt;</span> <span class="fl">155</span><span class="op">)</span></span></code></pre></div>
+<p>We can arrange the dataset in order of a variable using the <em>arrange()</em> function.</p>
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#Arrange the data by year</span></span>
+<span><span class="va">arrange_df</span> <span class="op">&lt;-</span> <span class="va">air_passengers_long</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">arrange_df</span><span class="op">)</span></span></code></pre></div>
+<pre><code>  year Month count
+1 1949   Jan   112
+2 1949   Feb   118
+3 1949   Mar   132
+4 1949   Apr   129
+5 1949   May   121
+6 1949   Jun   135</code></pre>
+<p>Two important functions are the <em>mutate()</em> and <em>summarize()</em> functions. We create new variables (not already defined) using the mutate function. For example, if we want to create a new logical variable that is TRUE if year &gt; 1955, we can use the code below.</p>
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#Create a new logical variable using the mutate function, if year &gt; 1955 then TRUE else FALSE.</span></span>
+<span><span class="va">mutate_df</span> <span class="op">&lt;-</span> <span class="va">air_passengers_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">year_indicator</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;</span> <span class="fl">1955</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>If we want to summarize the data, we can use the <em>summarize()</em> function. For example, if we want the mean number of passengers by year, we first use the <em>group_by()</em> function to define which groups we want to summarize, in this case it is year. Then we use the <em>summarize()</em> function to define what summaries we want, e.g., mean, sd, median, and others.</p>
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># First group_by year to group the data by year variable.</span></span>
+<span><span class="co">#Then summarize the mean number of passengers to get the mean BY year.</span></span>
+<span><span class="va">summary_df</span> <span class="op">&lt;-</span> <span class="va">air_passengers_long</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean_number <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">count</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">summary_df</span><span class="op">)</span></span></code></pre></div>
+<pre><code># A tibble: 6 × 2
+   year mean_number
+  &lt;dbl&gt;       &lt;dbl&gt;
+1  1949        127.
+2  1950        140.
+3  1951        170.
+4  1952        197 
+5  1953        225 
+6  1954        239.</code></pre>
+<p>Putting all this together using a piping syntax</p>
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"AirPassengers"</span><span class="op">)</span></span>
+<span><span class="va">air_passengers_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="va">AirPassengers</span>, ncol <span class="op">=</span> <span class="fl">12</span>, nrow <span class="op">=</span> <span class="fl">12</span>, byrow <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">air_passengers_df</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">1949</span><span class="op">:</span><span class="fl">1960</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">air_passengers_df</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Jan"</span>, <span class="st">"Feb"</span>, <span class="st">"Mar"</span>, <span class="st">"Apr"</span>, <span class="st">"May"</span>,</span>
+<span>                                 <span class="st">"Jun"</span>, <span class="st">"Jul"</span>, <span class="st">"Aug"</span>, <span class="st">"Sep"</span>, <span class="st">"Oct"</span>,</span>
+<span>                                 <span class="st">"Nov"</span>, <span class="st">"Dev"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">air_passengers_mean_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="va">AirPassengers</span>, ncol <span class="op">=</span> <span class="fl">12</span>, nrow <span class="op">=</span> <span class="fl">12</span>, byrow <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Jan"</span> <span class="op">=</span> <span class="st">"X1"</span>, <span class="st">"Feb"</span> <span class="op">=</span> <span class="st">"X2"</span>, <span class="st">"Mar"</span> <span class="op">=</span> <span class="st">"X3"</span>, <span class="st">"Apr"</span> <span class="op">=</span> <span class="st">"X4"</span>, <span class="st">"May"</span> <span class="op">=</span> <span class="st">"X5"</span>,</span>
+<span>                                 <span class="st">"Jun"</span> <span class="op">=</span> <span class="st">"X6"</span>, <span class="st">"Jul"</span> <span class="op">=</span> <span class="st">"X7"</span>, <span class="st">"Aug"</span> <span class="op">=</span> <span class="st">"X8"</span>,</span>
+<span>                                  <span class="st">"Sep"</span> <span class="op">=</span> <span class="st">"X9"</span>, <span class="st">"Oct"</span> <span class="op">=</span> <span class="st">"X10"</span>,</span>
+<span>                                 <span class="st">"Nov"</span> <span class="op">=</span> <span class="st">"X11"</span>, <span class="st">"Dec"</span> <span class="op">=</span> <span class="st">"X12"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>year<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1949</span><span class="op">:</span><span class="fl">1960</span><span class="op">)</span>,</span>
+<span>                <span class="va">year_indicator</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;</span> <span class="fl">1955</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>   <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/gather.html">gather</a></span><span class="op">(</span>key<span class="op">=</span> <span class="st">"Month"</span>, value <span class="op">=</span> <span class="st">"count"</span>, <span class="op">-</span><span class="va">year</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Month</span> <span class="op">==</span> <span class="st">"Jan"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>        <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>           <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean_number <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">count</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">air_passengers_mean_data</span></span></code></pre></div>
+<pre><code># A tibble: 12 × 2
+    year mean_number
+   &lt;int&gt;       &lt;dbl&gt;
+ 1  1949         112
+ 2  1950         115
+ 3  1951         145
+ 4  1952         171
+ 5  1953         196
+ 6  1954         204
+ 7  1955         242
+ 8  1956         284
+ 9  1957         315
+10  1958         340
+11  1959         360
+12  1960         417</code></pre>
+</div>
+<div id="introduction-to-sf" class="section level2" number="3.2">
+<h2>
+<span class="header-section-number">3.2</span> Introduction to <em>sf</em><a class="anchor" aria-label="anchor" href="#introduction-to-sf"><i class="fas fa-link"></i></a>
+</h2>
+<p>A new class of spatial objects has been defined called simple features <a href="https://cran.r-project.org/web/packages/sf/vignettes/sf1.html"><em>sf</em></a>. <span class="math inline">\(Sf\)</span> objects appear as a data frame with an extra column named <strong>geometry</strong> that contains the geometrical information for the spatial part of the object. For the rest of the chapter, we will learn how to manipulate spatial features.</p>
+<p><img src="fig/sf.jpg" width="50%" style="display: block; margin: auto;">
+Illustration by Allison Horst, see <a href="%22https://r-spatial.github.io/sf/%22">Simple Features Blog</a></p>
+<div class="rmdnote">
+<p><strong>What is a feature?</strong></p>
+<p>A feature is thought of as a thing, or an object in the real world, such as a building or a tree. Features have geometry describing where on Earth the feature is located, and they have attributes, which describe other properties.</p>
+</div>
+<p><strong>Simple feature geometry types</strong></p>
+<p>The following seven simple feature types are most common.</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="6%">
+<col width="93%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">POINT</td>
+<td align="left">zero-dimensional geometry containing single point</td>
+</tr>
+<tr class="even">
+<td align="left">LINESTRING</td>
+<td align="left">sequence of points connected by straight, non-self intersecting line pieces; one-dimensional geometry</td>
+</tr>
+<tr class="odd">
+<td align="left">POLYGON</td>
+<td align="left">geometry with a positive area (two-dimensional); sequence of points form a closed, non-self intersecting ring; the first ring denotes the exterior ring, zero or more subsequent rings denote holes in this exterior ring</td>
+</tr>
+<tr class="even">
+<td align="left">MULTIPOINT</td>
+<td align="left">set of points; a MULTIPOINT is simple if no two Points in the MULTIPOINT are equal</td>
+</tr>
+<tr class="odd">
+<td align="left">MULTILINESTRING</td>
+<td align="left">set of linestrings</td>
+</tr>
+<tr class="even">
+<td align="left">MULTIPOLYGON</td>
+<td align="left">set of polygons</td>
+</tr>
+</tbody>
+</table></div>
+<p>We are going to use data from New Haven CT to work with different kinds of spatial data. First we need to run the commands below to us the <span class="math inline">\(sf\)</span> package and the New Haven data. The New Haven data contains several <span class="math inline">\(sf\)</span> data frames:
+1. <em>blocks</em> is a data frame with population demographics broken down by block. These attributes are saved within spatial polygons (boundaries of the blocks).
+2. <em>breach</em> is a data frame with location data for public disturbances (crimes). These attributes are saved with spatial points (x,y coordinates of the breaches).
+3. <em>roads</em> contains spatial lines that mark road locations.</p>
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#Install and Call in the sf and GISTools libraries.</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">GISTools</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#Call in the newhaven data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">newhaven</span><span class="op">)</span></span></code></pre></div>
+<p>Below shows the <em>blocks</em> sf data frame which gives an example of how a <em>sf</em> data frame contains both spatial locations/features and the attributes of those features. Below the geometry type is listed as a polygon which captures the boundaries of the census blocks. It also shows the bounding box of the minimum and maximum x,y coordinates. Each column denotes the spatial attributes or characteristics for each block (row), e.g., The POP1990 column reports the total population in 1990 for block 1 (pop=3071). The last column <em>geometry</em> holds the spatial features of each block meaning the geographic boundaries of the polygon.</p>
+<pre><code>Simple feature collection with 6 features and 28 fields
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: 534687.6 ymin: 177306.3 xmax: 569625.3 ymax: 188464.6
+Projected CRS: SOURCECRS
+  NEWH075H_ NEWH075H_I HSE_UNITS OCCUPIED VACANT  P_VACANT P_OWNEROCC
+0         2         69       763      725     38  4.980341   0.393185
+1         3         72       510      480     30  5.882353  20.392157
+2         4         64       389      362     27  6.940874  57.840617
+3         5         68       429      397     32  7.459207  19.813520
+4         6         67       443      385     58 13.092551  80.361174
+5         7        133       588      548     40  6.802721  52.551020
+  P_RENTROCC NEWH075P_ NEWH075P_I POP1990  P_MALES P_FEMALES   P_WHITE
+0  94.626474         2        380    2396 40.02504  59.97496  7.095159
+1  73.725490         3        385    3071 39.07522  60.92478 87.105177
+2  35.218509         4        394     996 47.38956  52.61044 32.931727
+3  72.727273         5        399    1336 42.66467  57.33533 11.452096
+4   6.546275         6        404     915 46.22951  53.77049 73.442623
+5  40.646259         7        406    1318 50.91047  49.08953 87.784522
+    P_BLACK P_AMERI_ES P_ASIAN_PI  P_OTHER  P_UNDER5    P_5_13  P_14_17
+0 87.020033   0.584307   0.041736 5.258765 12.813022 24.707846 7.888147
+1 10.452621   0.195376   0.521003 1.725822  1.921198  2.474764 0.814067
+2 66.265060   0.100402   0.200803 0.502008 10.441767 13.554217 5.722892
+3 85.553892   0.523952   0.523952 1.946108 10.853293 17.739521 7.709581
+4 24.371585   0.327869   1.420765 0.437158  6.229508  8.633880 2.950820
+5  7.435508   0.758725   0.834598 3.186646  8.725341  8.194234 3.641882
+    P_18_24   P_25_34   P_35_44  P_45_54  P_55_64   P_65_74   P_75_UP
+0 12.479132 16.026711  8.555927 5.759599 4.924875  4.048414  2.796327
+1 71.149463  7.359166  4.037773 1.595571 1.758385  3.712146  5.177467
+2  8.835341 17.670683 17.871486 8.734940 5.923695  7.931727  3.313253
+3 12.425150 18.113772 10.853293 9.056886 6.287425  4.266467  2.694611
+4  7.103825 17.267760 16.830601 8.415301 7.431694 14.426230 10.710383
+5 10.091047 29.286798 12.898331 7.814871 7.814871  6.904401  4.628225
+                        geometry
+0 POLYGON ((540989.5 186028.3...
+1 POLYGON ((539949.9 187487.6...
+2 POLYGON ((537497.6 184616.7...
+3 POLYGON ((537497.6 184616.7...
+4 POLYGON ((536589.3 184217.5...
+5 POLYGON ((568032.4 183170.2...</code></pre>
+<p>Many of the <em>dplyr</em> functions described above can be used on an <em>sf</em> data frame. For example, we can use the <span class="math inline">\(filter()\)</span> function to only include larger populations with POP1990&gt; 1000. Additionally, we can create a new variable called <em>RentOcc</em> that calculates the number of housing units that are renter occupied.</p>
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#Use the filter function to subset to blocks with population &gt;1000</span></span>
+<span><span class="co"># Use mutate function to create RentOcc = number of renter occ housing units.</span></span>
+<span><span class="va">blocks_subset</span> <span class="op">&lt;-</span> <span class="va">blocks_sf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">POP1990</span><span class="op">&gt;</span><span class="fl">1000</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>RentOcc <span class="op">=</span> <span class="va">HSE_UNITS</span> <span class="op">*</span> <span class="va">P_RENTROCC</span><span class="op">/</span><span class="fl">100</span><span class="op">)</span></span></code></pre></div>
+<p><strong>Spatial Joins</strong> combine multiple data sets in the case where any of the data are recorded as spatial features. To join a <span class="math inline">\(sf\)</span> data set, use the <span class="math inline">\(st_join(x,y)\)</span> function. The data in data set <span class="math inline">\(y\)</span> are merged in with the data in <span class="math inline">\(x\)</span>. If <span class="math inline">\(y\)</span> contains values outside of <span class="math inline">\(x\)</span> boundaries, these are discarded. For example, if there is a location in <span class="math inline">\(y\)</span> outside of boundaries in <span class="math inline">\(x\)</span> it will be removed.</p>
+<p>In the below code, we merge together the data from the <em>block_sf</em> data set (population attributes of the census blocks) and the <em>breach_sf</em> data set (locations of crimes). The new data set called <em>block_breach_sf</em> is a polygon object, with attributes of the polygon containing each particular point being joined as columns.</p>
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="va">breach_sf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_join.html">st_join</a></span><span class="op">(</span><span class="va">blocks_sf</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="an-introduction-to-tmap" class="section level2" number="3.3">
+<h2>
+<span class="header-section-number">3.3</span> An Introduction to TMAP<a class="anchor" aria-label="anchor" href="#an-introduction-to-tmap"><i class="fas fa-link"></i></a>
+</h2>
+<p>This section will concentrate on learning the functions in the <a href="https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html"><em>tmap</em></a> (Tennekes, 2015). This package focuses on mapping the spatial distribution of data attributes. It has a similar grammar to plotting with the *<strong>ggplot</strong> package in that it seeks to handle each element of the map separately in a series of layers.</p>
+<p>The process of making maps using <em>tmap</em> is one in which a series of layers are added to the map. First <span class="math inline">\(tm_shape()\)</span> is specified, followed by an aesthetic function that specifies what is to be plotted. The input to <span class="math inline">\(tm_shape()\)</span> is an sf object.</p>
+<div id="layer-1" class="section level3" number="3.3.1">
+<h3>
+<span class="header-section-number">3.3.1</span> Layer 1<a class="anchor" aria-label="anchor" href="#layer-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>For example, we may want to plot the New Haven crime data. The first layer of the plot is the geographic polygons (census block boundaries) of New Haven. We input the <span class="math inline">\(blocks\_sf\)</span> object in the <span class="math inline">\(tm_shape()\)</span> function. We plot the borders spatial layer of the data which outlines census block boundaries. To add custom styles to the background, refer to <span class="math inline">\(?tm\_style\)</span> and <span class="math inline">\(tm\_layout\)</span> to see possible options in the documentation.</p>
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">?</span><span class="va">tm_style</span></span>
+<span><span class="op">?</span><span class="va">tm_layout</span></span>
+<span></span>
+<span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">blocks_sf</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">tm_borders</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"red"</span>, lty <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_style</span><span class="op">(</span><span class="st">"natural"</span>, bg.color <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_layout</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"New Haven CT"</span>,</span>
+<span>            title.size <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>            title.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.55</span>, <span class="st">"top"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="03-datawrangling_files/figure-html/unnamed-chunk-18-1.png" width="672"></div>
+<p>So what you can see in the above code is one set of layers for the borders where we customize the look, color, and outline.</p>
+</div>
+<div id="layer-2" class="section level3" number="3.3.2">
+<h3>
+<span class="header-section-number">3.3.2</span> Layer 2<a class="anchor" aria-label="anchor" href="#layer-2"><i class="fas fa-link"></i></a>
+</h3>
+<p>A plot of geographic boundaries alone does not give much information. We add a second layer where we can include the spatial attributes of the areas (polygons). To add the second layer to the current plot, add another <span class="math inline">\(tm\_shape()\)</span> function, and add the second <span class="math inline">\(sf\)</span> object input that contains the spatial area data. For example, here we will plot the percent of renter occupied housing units.</p>
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">?</span><span class="va">tm_style</span></span>
+<span><span class="op">?</span><span class="va">tm_layout</span></span>
+<span></span>
+<span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">blocks_sf</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">tm_borders</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"red"</span>, lty <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_shape</span><span class="op">(</span><span class="va">blocks_sf</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_polygons</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"P_RENTROCC"</span>, palette <span class="op">=</span> <span class="st">"Blues"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_layout</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"New Haven CT"</span>,</span>
+<span>            title.size <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>            title.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.55</span>, <span class="st">"top"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="03-datawrangling_files/figure-html/unnamed-chunk-19-1.png" width="672"></div>
+</div>
+<div id="layer-3" class="section level3" number="3.3.3">
+<h3>
+<span class="header-section-number">3.3.3</span> Layer 3<a class="anchor" aria-label="anchor" href="#layer-3"><i class="fas fa-link"></i></a>
+</h3>
+<p>The third layer of the New Haven plot may include the point layer which plots the geographic coordinates of the breaches of the peace. We add point data using the <span class="math inline">\(tm\_dots()\)</span> command.</p>
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">?</span><span class="va">tm_style</span></span>
+<span><span class="op">?</span><span class="va">tm_layout</span></span>
+<span></span>
+<span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">blocks_sf</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">tm_borders</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"red"</span>, lty <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_polygons</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"P_RENTROCC"</span>, palette <span class="op">=</span> <span class="st">"Blues"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">tm_shape</span><span class="op">(</span><span class="va">breach_sf</span><span class="op">)</span> <span class="op">+</span></span>
+<span>      <span class="fu">tm_dots</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"blue"</span>, size <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_layout</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"New Haven CT"</span>,</span>
+<span>            title.size <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>            title.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.55</span>, <span class="st">"top"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="03-datawrangling_files/figure-html/unnamed-chunk-20-1.png" width="672"></div>
+</div>
+<div id="layer-4" class="section level3" number="3.3.4">
+<h3>
+<span class="header-section-number">3.3.4</span> Layer 4<a class="anchor" aria-label="anchor" href="#layer-4"><i class="fas fa-link"></i></a>
+</h3>
+<p>The fourth layer of the New Haven plot may include the lines layer which plots the roads in New Haven. Again, add another <span class="math inline">\(tm\_shape()\)</span> function, and add the third <span class="math inline">\(sf\)</span> object input that contains the lines data (<strong>roads_sf</strong>). We add line data using the <span class="math inline">\(tm\_lines()\)</span> command.</p>
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">?</span><span class="va">tm_style</span></span>
+<span><span class="op">?</span><span class="va">tm_layout</span></span>
+<span><span class="va">roads_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf</a></span><span class="op">(</span><span class="va">roads</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="va">roads_sf</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="va">blocks_sf</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">tm_shape</span><span class="op">(</span><span class="va">blocks_sf</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">tm_borders</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"red"</span>, lty <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_polygons</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"P_RENTROCC"</span>, palette <span class="op">=</span> <span class="st">"Blues"</span>, alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">tm_shape</span><span class="op">(</span><span class="va">breach_sf</span><span class="op">)</span> <span class="op">+</span></span>
+<span>      <span class="fu">tm_dots</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"blue"</span>, size <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>        <span class="fu">tm_shape</span><span class="op">(</span><span class="va">roads_sf</span><span class="op">)</span> <span class="op">+</span></span>
+<span>          <span class="fu">tm_lines</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"purple"</span>, alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_layout</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"New Haven CT"</span>,</span>
+<span>            title.size <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>            title.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.55</span>, <span class="st">"top"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="03-datawrangling_files/figure-html/unnamed-chunk-21-1.png" width="672"></div>
+</div>
+<div id="adding-context" class="section level3" number="3.3.5">
+<h3>
+<span class="header-section-number">3.3.5</span> Adding Context<a class="anchor" aria-label="anchor" href="#adding-context"><i class="fas fa-link"></i></a>
+</h3>
+<p>In some situations a map with background context may be more informative. There are a number of options for doing this, including <em>OpenStreetMap</em>, <em>GoogleMaps</em>, and <em>Leaflet</em>. This requires some additional packages to be downloaded and installed in R.</p>
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"OpenStreetMap"</span>, dep<span class="op">=</span><span class="cn">T</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ifellows/ROSM">OpenStreetMap</a></span><span class="op">)</span></span></code></pre></div>
+<p>Using <a href="https://cran.r-project.org/web/packages/OpenStreetMap/OpenStreetMap.pdf"><em>OpenStreetMap</em></a>, the approach is to define the area of interest, to download and plot the map tile from OpenStreetMap and then to plot your data over the tiles.</p>
+<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ifellows/ROSM">OpenStreetMap</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mtennekes/tmaptools">tmaptools</a></span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="fu">tmap_mode</span><span class="op">(</span><span class="st">"plot"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#To use Open Street Map, transform first to projections to EPSG 4326.</span></span>
+<span><span class="st">"+proj=longlat + ellps=WGS84"</span></span></code></pre></div>
+<pre><code>[1] "+proj=longlat + ellps=WGS84"</code></pre>
+<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">blocks_transform</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">blocks_sf</span>, <span class="fl">4326</span><span class="op">)</span></span>
+<span><span class="va">breach_transform</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">breach_sf</span>, <span class="fl">4326</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">box</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_bbox.html">st_bbox</a></span><span class="op">(</span><span class="va">blocks_transform</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">test</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/tmaptools/man/read_osm.html">read_osm</a></span><span class="op">(</span><span class="va">box</span>, type <span class="op">=</span> <span class="st">"osm"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">om_map</span> <span class="op">&lt;-</span> <span class="fu">tm_shape</span><span class="op">(</span><span class="va">test</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_rgb</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_shape</span><span class="op">(</span><span class="va">breach_transform</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">tm_dots</span><span class="op">(</span>col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">om_map</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="03-datawrangling_files/figure-html/unnamed-chunk-23-1.png" width="672"></div>
+</div>
+<div id="saving-your-map" class="section level3" number="3.3.6">
+<h3>
+<span class="header-section-number">3.3.6</span> Saving Your Map<a class="anchor" aria-label="anchor" href="#saving-your-map"><i class="fas fa-link"></i></a>
+</h3>
+<p>Having created a map in a window, you may now want to save the map for either printing or incorporating into a document. There are a few simple steps to save a map in multiple formats.</p>
+<ol style="list-style-type: decimal">
+<li><p>If you plot the map in the <strong>Viewer</strong> pane (bottom right), you can click on the <strong>Export</strong> button to save as a pdf or copy to clipboard.</p></li>
+<li><p>To directly save a map as a pdf/png or jep. Above the open street map object was assigned to “om_map”. Taking a pdf export for example, print the map after using the <span class="math inline">\(pdf()\)</span> command, which lists the filepath and the pdf file name and extension.</p></li>
+</ol>
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/grDevices/pdf.html">pdf</a></span><span class="op">(</span><span class="st">"filepath/mymap.pdf"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">om_map</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/grDevices/png.html">jpeg</a></span><span class="op">(</span><span class="st">"filepath/mymap.jpg"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">om_map</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="interactive-mapping" class="section level3" number="3.3.7">
+<h3>
+<span class="header-section-number">3.3.7</span> Interactive Mapping<a class="anchor" aria-label="anchor" href="#interactive-mapping"><i class="fas fa-link"></i></a>
+</h3>
+<p>Interactive maps are a great method to include multiple pieces of information within one map. Changing the tmap mode to “View” allows for an interactive map to be created using Leaflet in <span class="math inline">\(tmap\)</span>. To have multiple pieces of information contained within the map, the <span class="math inline">\(mapview\)</span> package</p>
+<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># tmap_mode("view")</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co">#    tm_shape(test) +</span></span>
+<span><span class="co">#    tm_rgb() +</span></span>
+<span><span class="co">#    tm_shape(breach_transform) +</span></span>
+<span><span class="co">#    tm_dots(col = "red")</span></span></code></pre></div>
+</div>
+</div>
+<div id="introduction-to-tidycensus" class="section level2" number="3.4">
+<h2>
+<span class="header-section-number">3.4</span> Introduction to TIDYCENSUS<a class="anchor" aria-label="anchor" href="#introduction-to-tidycensus"><i class="fas fa-link"></i></a>
+</h2>
+<p>The <a href="https://cloud.r-project.org/web/packages/tidycensus/tidycensus.pdf">tidycensus</a> package by Kyle Walker is an R package designed to facilitate the process of acquiring and working with US Census Bureau population data in the R environment. It is designed to streamline the data wrangling process for spatial Census data analysis. With <em>tidycensus</em> R users can acquire census reported variables of interest AND geometric and spatial attributes which helps facilitate mapping and spatial analysis. US Census Bureau data consists of:</p>
+<div class="inline-figure"><img src="fig/Slideloaf.jpg" width="70%" style="display: block; margin: auto;"></div>
+<ol style="list-style-type: decimal">
+<li>US decennial census data from 2010 and 2020 requested using <span class="math inline">\(get\_decennial()\)</span>.</li>
+<li>1-year and 5-year American Community Survey (ACS) population and demographic data requested using <span class="math inline">\(get\_acs()\)</span>.</li>
+<li>Population Projection Estimates (PEP) requested using <span class="math inline">\(get\_estimates()\)</span>.</li>
+<li>ACS Public Use Microdata requested using <span class="math inline">\(get\_pums()\)</span>.</li>
+<li>ACS Migration Flows requested using <span class="math inline">\(get\_flows()\)</span>.</li>
+</ol>
+<p>Note this is not a comprehensive tutorial on <em>tidycensus</em>. It will give you an introduction to the capabilities of the package.</p>
+<div id="geography-in-tidycensus" class="section level3" number="3.4.1">
+<h3>
+<span class="header-section-number">3.4.1</span> Geography in Tidycensus<a class="anchor" aria-label="anchor" href="#geography-in-tidycensus"><i class="fas fa-link"></i></a>
+</h3>
+<p>The USCB reports data from the national level to county to census block level. Importantly, not all data sources report data at all geographies. The decennial census and 5-year ACS estimates report down to census block. However, PEP only reports down to county level and metro/micro-politan areas.</p>
+</div>
+<div id="searching-for-variables-in-tidycensus" class="section level3" number="3.4.2">
+<h3>
+<span class="header-section-number">3.4.2</span> Searching for variables in Tidycensus<a class="anchor" aria-label="anchor" href="#searching-for-variables-in-tidycensus"><i class="fas fa-link"></i></a>
+</h3>
+<p>One challenge is extracting variable names from the USCB data sources. The <em>tidycensus</em> package contains a <span class="math inline">\(load\_variable()\)</span> function that can list variable names and their descriptions. By browsing or subsetting the table, you can search for the relevant variables needed for your analysis.</p>
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("tidycensus")</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://walker-data.com/tidycensus/">tidycensus</a></span><span class="op">)</span></span>
+<span><span class="va">vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://walker-data.com/tidycensus/reference/load_variables.html">load_variables</a></span><span class="op">(</span><span class="fl">2020</span>, <span class="st">"acs5"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">vars</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="extracting-the-data-in-tidycensus" class="section level3" number="3.4.3">
+<h3>
+<span class="header-section-number">3.4.3</span> Extracting the data in Tidycensus<a class="anchor" aria-label="anchor" href="#extracting-the-data-in-tidycensus"><i class="fas fa-link"></i></a>
+</h3>
+<p>Let’s work through examples on how to extract ACS. The parameters passed through the <span class="math inline">\(get\_acs()\)</span> function require the:
+1. <strong>geography</strong> which the the spatial resolution you want reported. Here we want county level data.
+2. <strong>state</strong> is an optional parameter if you want a specific state. The default is NULL if you want the US.
+3. <strong>variables</strong> listed the needed variables from the list above. Here we chose the variable for median household income.
+4. <strong>year</strong> (self-explanatory?)
+5. <strong>geometry</strong> is an important parameter. When set to <span class="math inline">\(T\)</span> the data frame will include the spatial boundaries of the counties in your data frame and will produce an <span class="math inline">\(sf\)</span> object.</p>
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://walker-data.com/tidycensus/">tidycensus</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ga_hinc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://walker-data.com/tidycensus/reference/get_acs.html">get_acs</a></span><span class="op">(</span></span>
+<span>  geography <span class="op">=</span> <span class="st">"county"</span>,</span>
+<span>  state <span class="op">=</span> <span class="st">"Georgia"</span>,</span>
+<span>  variables<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"B19013_001"</span><span class="op">)</span>,</span>
+<span>  year <span class="op">=</span> <span class="fl">2020</span>,</span>
+<span>  geometry <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ga_hinc</span><span class="op">)</span></span></code></pre></div>
+<p>The resulting data frame a row for each county. Each row lists the county name, the estimate of the variable, and the associated margins of error (otherwise referred to as sampling error from ACS). Additionally, we have a geographic identification (GEOID) and the geometric features column.</p>
+<p>Next let’s work through examples on how to extract PEP. The parameters passed through the <span class="math inline">\(get\_estimate()\)</span> function require the:
+1. <strong>geography</strong> which the the spatial resolution you want reported. Here we want county level data.
+2. <strong>state</strong> is an optional parameter if you want a specific state. The default is NULL if you want the US.
+3. <strong>product</strong> lists three optioins: (1) population totals (“population”), (2) populations by characteristics (“characteristics”), and (3) housing units (“housing”). Here we request populations by sex and race breakdowns.
+4. <strong>breakdown* lists RACE, SEX, AGE (for years 2020+), and HISPANIC.
+4. </strong>year** (self-explanatory?)
+5. <strong>geometry</strong> again set to <span class="math inline">\(T\)</span> the data frame will include the spatial boundaries of the counties in your data frame and will produce an <span class="math inline">\(sf\)</span> object.</p>
+<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://walker-data.com/tidycensus/">tidycensus</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-tmap.github.io/tmap/">tmap</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ga_sexrace</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://walker-data.com/tidycensus/reference/get_estimates.html">get_estimates</a></span><span class="op">(</span></span>
+<span>  geography <span class="op">=</span> <span class="st">"county"</span>,</span>
+<span>  state <span class="op">=</span> <span class="st">"Georgia"</span>,</span>
+<span>  product<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"characteristics"</span><span class="op">)</span>,</span>
+<span>  breakdown <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"SEX"</span>,<span class="st">"RACE"</span><span class="op">)</span>,</span>
+<span>  breakdown_labels <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>  year <span class="op">=</span> <span class="fl">2019</span>,</span>
+<span>  geometry <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ga_sexrace</span><span class="op">)</span></span></code></pre></div>
+<p>The resulting data frame a row for each county. Each row lists the county name, the value of the variable. For example, the population estimate for 2019 for the White population in Fulton County is 483838 across both sexes.</p>
+</div>
+</div>
+<div id="introduction-to-shapefile-and-tigris" class="section level2" number="3.5">
+<h2>
+<span class="header-section-number">3.5</span> Introduction to Shapefile and Tigris<a class="anchor" aria-label="anchor" href="#introduction-to-shapefile-and-tigris"><i class="fas fa-link"></i></a>
+</h2>
+<p>Shapefiles are a popular method of representing geospatial vector data in GIS. The shapefile can store data in the form of points, lines, or polygons. They can be used to represent administrative boundaries (think country/state/county borders) or roads, rivers, lakes etc. These shapes, together with data attributes that are linked to each shape, create the representation of the geographic data. Three mandatory files related to shapefiles use the extensions (.shp, .shx, .dbf). The actual shapefile relates to the.shp file.</p>
+<p>Shapefiles can be found on the internet with various publishers. For example,the US census bureau publishes shapefiles for the entire US. The USCB’s TIGER/Line database includes high-quality series of geographic datasets suitable for spatial and cartographic analyses. The TIGER/Line shapefiles include three general types of data:</p>
+<ol style="list-style-type: decimal">
+<li>Legal entities: Legal geographic entities including county and state boundaries.</li>
+<li>Statistical entities: Non legal entities but boundaries with statistical meaning, i.e., census tracts and. block groups.</li>
+<li>Geographic features: Geographic datasets linked with aggregrate demographic information including water and road fetures.</li>
+</ol>
+<p>From the USCB website, we downloaded the shapefile that contains all roads for the state of GA. Using the <span class="math inline">\(sf\)</span> package, we read in the shapefile using the <span class="math inline">\(st\_read\)</span> function. This gives an <span class="math inline">\(sf\)</span> data frame that contains the geometric features from the shapefile. Using the <span class="math inline">\(tmap\)</span> package, we can plot the <span class="math inline">\(sf\)</span> object.</p>
+<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">shp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="st">"data/shapefiles/tl_2019_13_prisecroads.shp"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">shp</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">shp</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">shp</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_lines.html">tm_lines</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="03-datawrangling_files/figure-html/unnamed-chunk-30-1.png" width="672"></div>
+<p>The <a href="https://cran.r-project.org/web/packages/tigris/tigris.pdf">tigris</a> package simplifies the process for R users of obtaining and using Census geographic datasets. The full list of shapefiles in <em>tigris</em> are available <a href="https://github.com/walkerke/tigris">here</a></p>
+<p>For example, the <span class="math inline">\(states()\)</span> function can be used to download the boundaries of U.S. states. This function produces an <span class="math inline">\(sf\)</span> data frame with geometric features.</p>
+<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.pakcages("tigris", dep =T)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/walkerke/tigris">tigris</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-tmap.github.io/tmap/">tmap</a></span><span class="op">)</span></span>
+<span><span class="va">st</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/tigris/man/states.html">states</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">st</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">st</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_polygons.html">tm_borders</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="03-datawrangling_files/figure-html/unnamed-chunk-31-1.png" width="672"></div>
+<p>Additionally, we can extract shapefiles corresponding to specific counties within a state.</p>
+<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ga_counties</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/tigris/man/counties.html">counties</a></span><span class="op">(</span><span class="st">"GA"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">ga_counties</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_polygons.html">tm_borders</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="03-datawrangling_files/figure-html/unnamed-chunk-32-1.png" width="672"></div>
+<p>Let’s add to this map by adding roads and water areas. We get the roads for GA using the <span class="math inline">\(primary\_secondary\_roads()\)</span> function that requires the state parameter to be set. To obtain the water areas, we must obtain water geometries for each county within the state of GA. We use the <span class="math inline">\(area\_water()\)</span> function that has state and county parameters.</p>
+<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">fips</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">ga_counties</span><span class="op">$</span><span class="va">COUNTYFP</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">road_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/tigris/man/primary_secondary_roads.html">primary_secondary_roads</a></span><span class="op">(</span><span class="st">"GA"</span><span class="op">)</span></span>
+<span><span class="va">water_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">c</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">cos</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span><span class="va">water_list</span><span class="op">[[</span><span class="va">c</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/tigris/man/area_water.html">area_water</a></span><span class="op">(</span><span class="st">"GA"</span>, <span class="va">fips</span><span class="op">[</span><span class="va">c</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">water_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span><span class="st">"rbind"</span>, <span class="va">water_list</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">ga_counties</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_polygons.html">tm_borders</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">water_data</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_polygons.html">tm_borders</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">road_data</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_lines.html">tm_lines</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"orange"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="03-datawrangling_files/figure-html/unnamed-chunk-33-1.png" width="672"></div>
+<div class="rmdtip">
+<p><strong>Lab 3 Activity</strong></p>
+<!-- 1. For you class project, write up an introductory paragraph that describes the public health issue you are addressing. Describe any background information on prevalence or incidence of the public health indicator and why it is an important issue (i.e., the negative impact on population health). Reference any citations you review in your paragraph.  -->
+<ol style="list-style-type: decimal">
+<li><p>For this lab, you will be reading in your project data which will contain different data tables dependent on your particular project. Read in your data and explore the data using the <span class="math inline">\(View()\)</span> and <span class="math inline">\(head()\)</span> functions.</p></li>
+<li><p>For US-based projects, use <em>tidycensus</em> to extract population counts for your given area using the <span class="math inline">\(get\_estimates()\)</span> function that provides PEP based population counts. Be sure to include the geography to have area level data. For non-US based projects, use the <span class="math inline">\(st\_read()\)</span> function to read in necessary shapefiles.</p></li>
+<li>
+<p>Write an introduction <em>Data</em> paragraph that describes the above to an audience not familiar with your project. Describe the data reported in each data table. This will include the following:</p>
+<ol style="list-style-type: lower-alpha">
+<li>The “relevant” variables contained in the data table.</li>
+<li>The geographical units captured in the data.</li>
+<li>The type of data (points, lines, polygons)</li>
+</ol>
+</li>
+<li><p>Do a spatial join with points and polygon data using the <span class="math inline">\(st\_join()\)</span> function from <span class="math inline">\(sf\)</span>. Create a new data set that contains the area attributes corresponding to each geographic point.</p></li>
+<li><p>Use layering in <span class="math inline">\(tmap\)</span> to produce a preliminary plot of both a chloropleth map of area attributes with points representing location data.</p></li>
+<li><p>Write a descriptive paragraph <em>Exploratory Analysis</em> that illustrates the map and the various patterns from the observed data. Based on this map, add descriptions of spatial relationships you observe.</p></li>
+</ol>
+</div>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="intro.html"><span class="header-section-number">2</span> Introduction to R</a></div>
+<div class="next"><a href="lecture4.html"><span class="header-section-number">4</span> Basic GIS Operations</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lecture3"><span class="header-section-number">3</span> Data Wrangling</a></li>
+<li><a class="nav-link" href="#introduction-to-dplyr"><span class="header-section-number">3.1</span> Introduction to DPLYR</a></li>
+<li><a class="nav-link" href="#introduction-to-sf"><span class="header-section-number">3.2</span> Introduction to sf</a></li>
+<li>
+<a class="nav-link" href="#an-introduction-to-tmap"><span class="header-section-number">3.3</span> An Introduction to TMAP</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#layer-1"><span class="header-section-number">3.3.1</span> Layer 1</a></li>
+<li><a class="nav-link" href="#layer-2"><span class="header-section-number">3.3.2</span> Layer 2</a></li>
+<li><a class="nav-link" href="#layer-3"><span class="header-section-number">3.3.3</span> Layer 3</a></li>
+<li><a class="nav-link" href="#layer-4"><span class="header-section-number">3.3.4</span> Layer 4</a></li>
+<li><a class="nav-link" href="#adding-context"><span class="header-section-number">3.3.5</span> Adding Context</a></li>
+<li><a class="nav-link" href="#saving-your-map"><span class="header-section-number">3.3.6</span> Saving Your Map</a></li>
+<li><a class="nav-link" href="#interactive-mapping"><span class="header-section-number">3.3.7</span> Interactive Mapping</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#introduction-to-tidycensus"><span class="header-section-number">3.4</span> Introduction to TIDYCENSUS</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#geography-in-tidycensus"><span class="header-section-number">3.4.1</span> Geography in Tidycensus</a></li>
+<li><a class="nav-link" href="#searching-for-variables-in-tidycensus"><span class="header-section-number">3.4.2</span> Searching for variables in Tidycensus</a></li>
+<li><a class="nav-link" href="#extracting-the-data-in-tidycensus"><span class="header-section-number">3.4.3</span> Extracting the data in Tidycensus</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#introduction-to-shapefile-and-tigris"><span class="header-section-number">3.5</span> Introduction to Shapefile and Tigris</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/Enpeterson/INFO532/blob//03-datawrangling.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/Enpeterson/INFO532/edit//03-datawrangling.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>INFO 532: Advanced GIS</strong>" was written by Emily Peterson &amp; Alex Edwards. It was last built on Last updated: 2023-10-16.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<div>
+	<table cellspacing="0" rules="all" border="1" style="border-collapse:collapse;">
+		<tr style="font-weight:bold;">
+			<th scope="col">Program Name</th><th scope="col">DBA</th><th scope="col">Street</th><th scope="col">City</th><th scope="col">State</th><th scope="col">Zipcode</th><th scope="col">Phone</th><th scope="col">Certification</th><th scope="col">FullCertification</th>
+		</tr><tr>
+			<td>BHG XLIV, LLC d/b/a BHG Albany Treatment Center</td><td>&nbsp;</td><td>2607 Ledo Rd.</td><td>Albany</td><td>GA</td><td>31707</td><td>(229) 903-0022</td><td>Certified</td><td>06/01/2005</td>
+		</tr><tr>
+			<td>Advanced Recovery Systems, LLC (WY)</td><td>The Recovery Village Atlanta</td><td>11725 Pointe Place</td><td>Alpharetta</td><td>GA</td><td>30076</td><td>(754) 300-3120 x4000</td><td>Provisional</td><td>&nbsp;</td>
+		</tr><tr>
+			<td>Platinum Recovery, LLC</td><td>&nbsp;</td><td>1560 E. Forsyth Street</td><td>Americus</td><td>GA</td><td>31709</td><td>(678) 972-8577</td><td>Provisional</td><td>&nbsp;</td>
+		</tr><tr>
+			<td>DM &amp; ADR, Inc.</td><td>&nbsp;</td><td>1710 Commerce Rd.</td><td>Athens</td><td>GA</td><td>30607</td><td>(706) 552-0688</td><td>Certified</td><td>10/05/2003</td>
+		</tr><tr>
+			<td>Alliance Recovery Center Athens</td><td>Alliance Recovery Center</td><td>119 Sycamore Dr</td><td>Athens</td><td>GA</td><td>30606</td><td>(706) 850-2121</td><td>Certified</td><td>07/22/2015</td>
+		</tr><tr>
+			<td>New Day Treatment Center, Inc.</td><td>&nbsp;</td><td>2563 Martin Luther King Jr. Drive</td><td>Atlanta</td><td>GA</td><td>30311</td><td>(404) 699-7774</td><td>Certified</td><td>04/08/2009</td>
+		</tr><tr>
+			<td>Medicine Wheel Clinic - Winder, Inc.</td><td>&nbsp;</td><td>85 Auburn Park Drive</td><td>Auburn</td><td>GA</td><td>30011</td><td>(770) 277-7958</td><td>Certified</td><td>01/27/2010</td>
+		</tr><tr>
+			<td>Colonial Management Group, LP</td><td>Augusta Metro Treatment Center</td><td>2357 Tobacco Road</td><td>Augusta</td><td>GA</td><td>30906</td><td>(706) 722-3855</td><td>Certified</td><td>01/01/2004</td>
+		</tr><tr>
+			<td>Harbor Springs Counseling Services LLC</td><td>&nbsp;</td><td>1790 Mulkey Road Suite 3A</td><td>Austell</td><td>GA</td><td>30106</td><td>(770) 693-9388</td><td>Certified</td><td>04/13/2020</td>
+		</tr><tr>
+			<td>Bainbridge Treatment Center</td><td>&nbsp;</td><td>931 S. West Street</td><td>Bainbridge</td><td>GA</td><td>39819</td><td>(229) 248-4220</td><td>Certified</td><td>02/29/2004</td>
+		</tr><tr>
+			<td>Medmark Treatment Centers of Georgia, Inc.</td><td>MedMark Treatment Centers Blairsville</td><td>20 Commerce Drive</td><td>Blairsville</td><td>GA</td><td>30512</td><td>(706) 781-6987</td><td>Certified</td><td>09/30/2008</td>
+		</tr><tr>
+			<td>Coastal Community Behavioral Health, LLC</td><td>Coastal Community Behavioral Health - Brunswick</td><td>100 Cornerstone Drive</td><td>Brunswick</td><td>GA</td><td>31523</td><td>(912) 262-0311</td><td>Certified</td><td>01/27/2010</td>
+		</tr><tr>
+			<td>HealthQwest Frontiers, LLC</td><td>&nbsp;</td><td>4271 South Lee Street</td><td>Buford</td><td>GA</td><td>30518</td><td>(678) 765-8160</td><td>Certified</td><td>02/28/2017</td>
+		</tr><tr>
+			<td>Crossroads Treatment Center of Calhoun, PC</td><td>&nbsp;</td><td>367 Richardson Road, SE</td><td>Calhoun</td><td>GA</td><td>30701</td><td>(762) 204-2451</td><td>Certified</td><td>09/15/2016</td>
+		</tr><tr>
+			<td>Toxicology Associates of North Georgia Carrollton, Inc.</td><td>Toxicology Associates of North Georgia Carrollton, Inc.</td><td>2536 Carollton-Villa Rica Hwy</td><td>Carrollton</td><td>GA</td><td>30117</td><td>(770) 214-9788</td><td>Certified</td><td>02/07/2006</td>
+		</tr><tr>
+			<td>Cartersville Center, LLC</td><td>Cartersville Comprehensive Treatment Center</td><td>218 Stonewall St.</td><td>Cartersville</td><td>GA</td><td>30120</td><td>(770) 386-1907</td><td>Certified</td><td>11/01/2003</td>
+		</tr><tr>
+			<td>MedMark Treatment Centers of Georgia, Inc.</td><td>MedMark Treatment Centers Chatsworth</td><td>1289 GI Maddox Pkwy (US Hwy 76)</td><td>Chatsworth</td><td>GA</td><td>30705</td><td>(706) 971-3366</td><td>Certified</td><td>02/22/2017</td>
+		</tr><tr>
+			<td>Columbus Addiction Associates, LLC</td><td>MedMark Treatment Centers Columbus North</td><td>5617 Princeton Avenue</td><td>Columbus</td><td>GA</td><td>31904</td><td>(706) 257-7722</td><td>Certified</td><td>12/17/2014</td>
+		</tr><tr>
+			<td>Metro Treatment of Georgia, LP</td><td>Columbus Metro Treatment Center</td><td>1135 13th Street</td><td>Columbus</td><td>GA</td><td>31902</td><td>(706) 887-5030</td><td>Certified</td><td>05/11/2015</td>
+		</tr><tr>
+			<td>Robert W. Dail Memorial Treatment Center</td><td>Robert W. Dail Memorial Treatment Center</td><td>734 Hospital Road</td><td>Commerce</td><td>GA</td><td>30529</td><td>(706) 335-5180</td><td>Certified</td><td>03/09/2007</td>
+		</tr><tr>
+			<td>Alliance Recovery Center Conyers</td><td>Alliance Recovery Centers</td><td>3430 Highway 20</td><td>Conyers</td><td>GA</td><td>30013</td><td>(770) 922-4482</td><td>Certified</td><td>10/30/2007</td>
+		</tr><tr>
+			<td>Georgia CTC, LLC</td><td>Cumming Comprehensive Treatment Center</td><td>514 West Maple Street</td><td>Cumming</td><td>GA</td><td>30040</td><td>(770) 844-7826</td><td>Certified</td><td>05/11/2016</td>
+		</tr><tr>
+			<td>Georgia CTC, LLC</td><td>Dallas Comprehensive Treatment Center</td><td>311 White Ingram Parkway</td><td>Dallas</td><td>GA</td><td>30132</td><td>(678) 363-7447</td><td>Certified</td><td>04/02/2018</td>
+		</tr><tr>
+			<td>Crossroads Treatment Center of Dawsonville, PC</td><td>&nbsp;</td><td>400 Dawson Commons Circle, Suite 410</td><td>Dawsonville</td><td>GA</td><td>30534</td><td>(706) 344-1263</td><td>Certified</td><td>09/12/2017</td>
+		</tr><tr>
+			<td>Alliance Recovery Center, Inc.</td><td>&nbsp;</td><td>1116 E. Ponce De Leon Ave.</td><td>Decatur</td><td>GA</td><td>30030</td><td>(404) 377-7669</td><td>Certified</td><td>09/01/2003</td>
+		</tr><tr>
+			<td>Department of Veterans Affairs</td><td>&nbsp;</td><td>1670 Clairmont Road</td><td>Decatur</td><td>GA</td><td>30033</td><td>(404) 321-6111 x7392</td><td>Certified</td><td>08/22/2003</td>
+		</tr><tr>
+			<td>GPA Treatment, Inc.</td><td>&nbsp;</td><td>4255 Chamblee-Tucker Rd.</td><td>Doraville</td><td>GA</td><td>30340</td><td>(770) 493-1922</td><td>Certified</td><td>10/01/2003</td>
+		</tr><tr>
+			<td>HealthQwest, LLC</td><td>&nbsp;</td><td>2109 Fairburn Rd. Unit A</td><td>Douglasville</td><td>GA</td><td>30135</td><td>(770) 726-7958</td><td>Certified</td><td>03/16/2011</td>
+		</tr><tr>
+			<td>Genesis Treatment Center</td><td>&nbsp;</td><td>1022 Hillcrest Parkway, Suite 106</td><td>Dublin</td><td>GA</td><td>31201</td><td>(478) 272-5020</td><td>Certified</td><td>07/31/2013</td>
+		</tr><tr>
+			<td>Preferred Treatment</td><td>Preferred Treatment Center (PTC)</td><td>1101 Hillcrest Parkway, Unit F</td><td>Dublin</td><td>GA</td><td>31021</td><td>(478) 274-8426</td><td>Certified</td><td>05/23/2011</td>
+		</tr><tr>
+			<td>Southside Behavioral Lifestyle Enrichment Center</td><td>&nbsp;</td><td>1100 Cleveland Avenue</td><td>East Point</td><td>GA</td><td>30344</td><td>(404) 627-1385</td><td>Certified</td><td>02/10/2006</td>
+		</tr><tr>
+			<td>Southeast Georgia Treatment Center</td><td>Southeast Georgia Treatment Center</td><td>816 Professional Center Drive</td><td>Eastman</td><td>GA</td><td>31023</td><td>(478) 374-0390</td><td>Certified</td><td>07/15/2011</td>
+		</tr><tr>
+			<td>Gateway Treatment Centers, LLC</td><td>&nbsp;</td><td>37 Kiker Street</td><td>Ellijay</td><td>GA</td><td>30540</td><td>(706) 703-2517</td><td>Certified</td><td>09/02/2020</td>
+		</tr><tr>
+			<td>Treatment Center of Augusta</td><td>&nbsp;</td><td>4158 Washington Rd. Suite 4</td><td>Evans</td><td>GA</td><td>30809</td><td>(706) 854-9225</td><td>Certified</td><td>08/31/2012</td>
+		</tr><tr>
+			<td>Access Health Treatment Center</td><td>&nbsp;</td><td>105-A Bradford Square</td><td>Fayetteville</td><td>GA</td><td>30215</td><td>(770) 742-3846</td><td>Certified</td><td>06/21/2017</td>
+		</tr><tr>
+			<td>Metro Treatment of Georgia, LP</td><td>Northwest Georgia Treatment Center, Inc.</td><td>2007 Old LaFayette Road</td><td>Fort Oglethorpe</td><td>GA</td><td>30742</td><td>(706) 861-9390</td><td>Certified</td><td>12/01/2003</td>
+		</tr><tr>
+			<td>Lanier Treatment Center</td><td>&nbsp;</td><td>592-A Medical Park Drive</td><td>Gainesville</td><td>GA</td><td>30501</td><td>(770) 503-7721</td><td>Certified</td><td>04/03/2006</td>
+		</tr><tr>
+			<td>New Start Treatment, LLC</td><td>New Start Treatment</td><td>600 South 8th Street</td><td>Griffin</td><td>GA</td><td>30224</td><td>(678) 603-1381</td><td>Certified</td><td>09/07/2012</td>
+		</tr><tr>
+			<td>BHG LII, LLC</td><td>BHG Jackson Treatment Center</td><td>794 McDonough St., Suite 104</td><td>Jackson</td><td>GA</td><td>30233</td><td>(770) 775-9044</td><td>Certified</td><td>11/16/2006</td>
+		</tr><tr>
+			<td>Consecrated Care, Inc.</td><td>Consecrated Care, Inc.</td><td>217 Arrowhead Blvd., Ste. B-1</td><td>Jonesboro</td><td>GA</td><td>30236</td><td>(770) 472-9110</td><td>Certified</td><td>01/31/2006</td>
+		</tr><tr>
+			<td>Crossroads Treatment Center of LaGrange, PC</td><td>&nbsp;</td><td>229 South Davis Road, Suite 900</td><td>LaGrange</td><td>GA</td><td>30241</td><td>(706) 756-1489</td><td>Certified</td><td>11/15/2016</td>
+		</tr><tr>
+			<td>Toxicology Associates of North Georgia Gwinnett, Inc.</td><td>Toxicology Associates of North Georgia Gwinnett, Inc.</td><td>751 Collins Hill Rd.</td><td>Lawrenceville</td><td>GA</td><td>30046</td><td>(770) 248-1616</td><td>Certified</td><td>01/30/2007</td>
+		</tr><tr>
+			<td>Georgia CTC, LLC</td><td>Loganville Comprehensive Treatment Center</td><td>3543 Highway 81</td><td>Loganville</td><td>GA</td><td>30052</td><td>(760) 459-1418</td><td>Certified</td><td>02/17/2021</td>
+		</tr><tr>
+			<td>Trinity Treatment Center, Inc</td><td>&nbsp;</td><td>1221 Newberg Avenue</td><td>Macon</td><td>GA</td><td>31206</td><td>(478) 788-5600</td><td>Certified</td><td>11/20/2008</td>
+		</tr><tr>
+			<td>Georgia Treatment Services. LLC</td><td>&nbsp;</td><td>6132 Hawkinsville Rd</td><td>Macon</td><td>GA</td><td>31216</td><td>(478) 788.0066</td><td>Certified</td><td>01/25/2019</td>
+		</tr><tr>
+			<td>HealthQwest Frontiers, LLC</td><td>&nbsp;</td><td>890 Northwoods Plaza</td><td>Macon</td><td>GA</td><td>31204</td><td>(478) 330-7164</td><td>Certified</td><td>10/09/2014</td>
+		</tr><tr>
+			<td>Changing Phases Behavioral Support Inc.</td><td>Changing Phases Treatment Center</td><td>3655 Canton Rd</td><td>Marietta</td><td>GA</td><td>30066</td><td>(770) 726-1162</td><td>Certified</td><td>01/13/2017</td>
+		</tr><tr>
+			<td>Toxicology Associates of North Georgia, Inc.</td><td>Toxicology Associates of North Georgia, Inc.</td><td>1700 Cumberland Point Drive, Suite 1</td><td>Marietta</td><td>GA</td><td>30067</td><td>(770) 612-8264</td><td>Certified</td><td>06/01/2004</td>
+		</tr><tr>
+			<td>Bright Star Healthcare Group</td><td>Bright Star</td><td>1545 Pennsylvania Avenue</td><td>McDonough</td><td>GA</td><td>30253</td><td>(678) 770-5901</td><td>Certified</td><td>01/06/2020</td>
+		</tr><tr>
+			<td>Beyond Your Ordinary, Inc</td><td>Beyond Your Ordinary Treatment Center</td><td>97 Atlanta St</td><td>McDonough</td><td>GA</td><td>30253</td><td>(678) 671-3547</td><td>Certified</td><td>04/15/2021</td>
+		</tr><tr>
+			<td>New Start Treatment - Milledgeville</td><td>&nbsp;</td><td>1211 Columbia Dr.</td><td>Milledgeville</td><td>GA</td><td>30161</td><td>478-451-5210</td><td>Certified</td><td>11/16/2022</td>
+		</tr><tr>
+			<td>The Center of Renewed Promises</td><td>The Center of Renewed Promises</td><td>1485 Hwy 34E Suite A-1</td><td>Newnan</td><td>GA</td><td>30265</td><td>(770) 502-0884</td><td>Certified</td><td>10/28/2011</td>
+		</tr><tr>
+			<td>Treatment Center of Newnan</td><td>&nbsp;</td><td>931 Lower Fayetteville Road Suite K</td><td>Newnan</td><td>GA</td><td>30263</td><td>(770) 502-7055</td><td>Certified</td><td>11/29/2010</td>
+		</tr><tr>
+			<td>Metro Treatment of Georgia, LP</td><td>Atlanta Metro Treatment Center</td><td>6500 McDonough Dr., Suite B-2</td><td>Norcross</td><td>GA</td><td>30093</td><td>(770) 242-7865</td><td>Certified</td><td>12/01/2003</td>
+		</tr><tr>
+			<td>Lakeland Centres - Atlanta</td><td>&nbsp;</td><td>6063 Peachtree Parkway- Suite #103B</td><td>Norcross</td><td>GA</td><td>30092</td><td>(770) 840-9912</td><td>Certified</td><td>05/01/2004</td>
+		</tr><tr>
+			<td>New Pointe Treatment Center, LLC</td><td>&nbsp;</td><td>1031 Keith Dr</td><td>Perry</td><td>GA</td><td>31069</td><td>478-987-7912</td><td>Certified</td><td>05/14/2015</td>
+		</tr><tr>
+			<td>Crossroads Treatment Center of Northwest Georgia</td><td>&nbsp;</td><td>4083 Cloud Springs Road</td><td>Ringgold</td><td>GA</td><td>30736</td><td>(706) 820-6087</td><td>Certified</td><td>05/18/2012</td>
+		</tr><tr>
+			<td>Ringgold Treatment Center, LLC</td><td>&nbsp;</td><td>8292 Highway 41</td><td>Ringgold</td><td>GA</td><td>30736</td><td>(706) 952-2800</td><td>Certified</td><td>03/16/2018</td>
+		</tr><tr>
+			<td>New Horizons Treatment Center, Inc</td><td>&nbsp;</td><td>36 Chateau Ct.</td><td>Rome</td><td>GA</td><td>30161</td><td>(706) 233-9603</td><td>Certified</td><td>05/01/2004</td>
+		</tr><tr>
+			<td>Neptune Clinical Group, Inc.</td><td>Private Clinic North</td><td>822 Chickamauga Ave.</td><td>Rossville</td><td>GA</td><td>30741</td><td>(706) 861-6458</td><td>Certified</td><td>01/12/2006</td>
+		</tr><tr>
+			<td>The Renaissance Recovery Group</td><td>North Fulton Treatment Center</td><td>601 Bombay Lane</td><td>Roswell</td><td>GA</td><td>30076</td><td>(770) 754-4674</td><td>Certified</td><td>09/01/2003</td>
+		</tr><tr>
+			<td>Coastal Community Behavioral Health, LLC</td><td>&nbsp;</td><td>5155 GA Highway 40 E</td><td>Saint Marys</td><td>GA</td><td>31558</td><td>(912) 434-1794</td><td>Certified</td><td>12/06/2017</td>
+		</tr><tr>
+			<td>HealthQwest Frontiers, LLC</td><td>&nbsp;</td><td>6707 Forest Park Dr</td><td>Savannah</td><td>GA</td><td>31406</td><td>(912) 335-1699</td><td>Certified</td><td>09/13/2012</td>
+		</tr><tr>
+			<td>Augusta Addiction Associates, LLC</td><td>MedMark Treatment Centers - Savannah</td><td>600 Commercial Court</td><td>Savannah</td><td>GA</td><td>31406</td><td>(912) 352-4357</td><td>Certified</td><td>02/26/2013</td>
+		</tr><tr>
+			<td>Metro Treatment of Georgia, LP</td><td>Savannah Treatment Center</td><td>145-B Southern Blvd.</td><td>Savannah</td><td>GA</td><td>31322</td><td>(912) 233-6430</td><td>Certified</td><td>12/09/2015</td>
+		</tr><tr>
+			<td>Reliance Treatment Center of Statesboro, LLC</td><td>Reliance Treatment Center of Statesboro</td><td>201 Donehoo Street</td><td>Statesboro</td><td>GA</td><td>30458</td><td>(912) 489-7827</td><td>Certified</td><td>04/15/2013</td>
+		</tr><tr>
+			<td>HealthQwest, LLC</td><td>&nbsp;</td><td>1233 Eagles Landing Parkway</td><td>Stockbridge</td><td>GA</td><td>30281</td><td>(770) 474-4009</td><td>Certified</td><td>06/25/2012</td>
+		</tr><tr>
+			<td>Crossroads Treatment Center at Sugarloaf, PC</td><td>&nbsp;</td><td>2855 Lawrenceville Suwanee Road</td><td>Suwanee</td><td>GA</td><td>30025</td><td>(770) 904-3955</td><td>Certified</td><td>12/12/2012</td>
+		</tr><tr>
+			<td>Golden Recovery, LLC</td><td>Golden Recovery, LLC</td><td>1540 Highway 19 North</td><td>Thomaston</td><td>GA</td><td>30286</td><td>(770) 688-4625</td><td>Provisional</td><td>&nbsp;</td>
+		</tr><tr>
+			<td>BHG XLV, LLC d/b/a BHG Tifton Treatment Center</td><td>&nbsp;</td><td>2402 N. Tift Ave.</td><td>Tifton</td><td>GA</td><td>31794</td><td>(229) 382-7898</td><td>Certified</td><td>06/03/2009</td>
+		</tr><tr>
+			<td>Pittard Clinic</td><td>&nbsp;</td><td>1654 Falls Rd.</td><td>Toccoa</td><td>GA</td><td>30577</td><td>(706) 886-4420</td><td>Certified</td><td>11/24/2008</td>
+		</tr><tr>
+			<td>Treatment Center of Valdosta</td><td>&nbsp;</td><td>2301 University Dr.</td><td>Valdosta</td><td>GA</td><td>31602</td><td>(229) 242-4673</td><td>Certified</td><td>02/08/2006</td>
+		</tr><tr>
+			<td>Extended Wellness</td><td>Extended Wellness</td><td>604 Broad Foot Drive</td><td>Vidalia</td><td>GA</td><td>30474</td><td>(478) 274-8426</td><td>Certified</td><td>10/05/2011</td>
+		</tr><tr>
+			<td>HealthQwest, LLC</td><td>&nbsp;</td><td>607 Russell Parkway</td><td>Warner Robins</td><td>GA</td><td>31088</td><td>(478) 225-9860</td><td>Certified</td><td>11/24/2009</td>
+		</tr><tr>
+			<td>Treatment Center of Waycross</td><td>&nbsp;</td><td>1766 Memorial Drive, Suite-3</td><td>Waycross</td><td>GA</td><td>31501</td><td>(912) 285-2658</td><td>Certified</td><td>01/25/2008</td>
+		</tr><tr>
+			<td>Tri-State Treatment</td><td>&nbsp;</td><td>1236 Highway 299</td><td>Wildwood</td><td>GA</td><td>30757</td><td>(423) 428-0045</td><td>Certified</td><td>05/29/2013</td>
+		</tr><tr>
+			<td>The Genesis Center of Winder, LLC</td><td>&nbsp;</td><td>206 E. Broad St</td><td>Winder</td><td>GA</td><td>30680</td><td>(678) 900-1579</td><td>Certified</td><td>03/23/2021</td>
+		</tr><tr>
+			<td>Georgia CTC, LLC</td><td>Woodstock Comprehensive Treatment Center</td><td>270 Heritage Walk</td><td>Woodstock</td><td>GA</td><td>30188</td><td>(760) 459-1418</td><td>Certified</td><td>06/26/2013</td>
+		</tr>
+	</table>
+</div>

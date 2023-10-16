@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>test</title>
+  <meta name="description" content="This book covers topics discussed in INFO 532: Advanced Geographic Information Systems." />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="test" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This book covers topics discussed in INFO 532: Advanced Geographic Information Systems." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="test" />
+  
+  <meta name="twitter:description" content="This book covers topics discussed in INFO 532: Advanced Geographic Information Systems." />
+  
+
+<meta name="author" content="Emily Peterson &amp; Alex Edwards" />
+
+
+<meta name="date" content="2023-10-11" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="introduction-to-gis.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>INFO 532: Advanced Geographic Information Systems Fall 2023</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#about-the-class"><i class="fa fa-check"></i>About the class</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#grading"><i class="fa fa-check"></i>Grading</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#labs"><i class="fa fa-check"></i>Labs</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-do-i-get-help"><i class="fa fa-check"></i>How do I get help?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#resources-for-students"><i class="fa fa-check"></i>Resources for students</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#diversity-and-inclusion-statement"><i class="fa fa-check"></i>Diversity and Inclusion Statement</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#using-this-notebook"><i class="fa fa-check"></i>Using this notebook</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introduction-to-gis.html"><a href="introduction-to-gis.html"><i class="fa fa-check"></i><b>1</b> Introduction to GIS</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction-to-gis.html"><a href="introduction-to-gis.html#what-is-gis"><i class="fa fa-check"></i><b>1.1</b> What is GIS?</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction-to-gis.html"><a href="introduction-to-gis.html#how-is-gis-used"><i class="fa fa-check"></i><b>1.2</b> How is GIS used?</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction-to-gis.html"><a href="introduction-to-gis.html#feature-representation"><i class="fa fa-check"></i><b>1.3</b> Feature Representation</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="introduction-to-gis.html"><a href="introduction-to-gis.html#vector"><i class="fa fa-check"></i><b>1.3.1</b> Vector</a></li>
+<li class="chapter" data-level="1.3.2" data-path="introduction-to-gis.html"><a href="introduction-to-gis.html#raster"><i class="fa fa-check"></i><b>1.3.2</b> Raster</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction to R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#panes-in-rstudio"><i class="fa fa-check"></i><b>2.1</b> Panes in RStudio</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#your-first-r-script"><i class="fa fa-check"></i><b>2.2</b> Your first R script</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#data-types-in-r"><i class="fa fa-check"></i><b>2.3</b> Data Types in R</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="intro.html"><a href="intro.html#vectors"><i class="fa fa-check"></i><b>2.3.1</b> Vectors</a></li>
+<li class="chapter" data-level="2.3.2" data-path="intro.html"><a href="intro.html#matrices-and-data-frames"><i class="fa fa-check"></i><b>2.3.2</b> Matrices and Data Frames</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#functions-and-packages-in-r"><i class="fa fa-check"></i><b>2.4</b> Functions and Packages in R</a></li>
+<li class="chapter" data-level="2.5" data-path="intro.html"><a href="intro.html#writing-reproducible-code"><i class="fa fa-check"></i><b>2.5</b> Writing Reproducible Code</a></li>
+<li class="chapter" data-level="2.6" data-path="intro.html"><a href="intro.html#creating-a-r-markdown-file"><i class="fa fa-check"></i><b>2.6</b> Creating a R Markdown file</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="intro.html"><a href="intro.html#the-yaml-header"><i class="fa fa-check"></i><b>2.6.1</b> The YAML Header</a></li>
+<li class="chapter" data-level="2.6.2" data-path="intro.html"><a href="intro.html#markdown-syntax"><i class="fa fa-check"></i><b>2.6.2</b> Markdown syntax</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="lecture3.html"><a href="lecture3.html"><i class="fa fa-check"></i><b>3</b> Data Wrangling</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="lecture3.html"><a href="lecture3.html#introduction-to-dplyr"><i class="fa fa-check"></i><b>3.1</b> Introduction to DPLYR</a></li>
+<li class="chapter" data-level="3.2" data-path="lecture3.html"><a href="lecture3.html#introduction-to-sf"><i class="fa fa-check"></i><b>3.2</b> Introduction to <em>sf</em></a></li>
+<li class="chapter" data-level="3.3" data-path="lecture3.html"><a href="lecture3.html#an-introduction-to-tmap"><i class="fa fa-check"></i><b>3.3</b> An Introduction to TMAP</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="lecture3.html"><a href="lecture3.html#layer-1"><i class="fa fa-check"></i><b>3.3.1</b> Layer 1</a></li>
+<li class="chapter" data-level="3.3.2" data-path="lecture3.html"><a href="lecture3.html#layer-2"><i class="fa fa-check"></i><b>3.3.2</b> Layer 2</a></li>
+<li class="chapter" data-level="3.3.3" data-path="lecture3.html"><a href="lecture3.html#layer-3"><i class="fa fa-check"></i><b>3.3.3</b> Layer 3</a></li>
+<li class="chapter" data-level="3.3.4" data-path="lecture3.html"><a href="lecture3.html#layer-4"><i class="fa fa-check"></i><b>3.3.4</b> Layer 4</a></li>
+<li class="chapter" data-level="3.3.5" data-path="lecture3.html"><a href="lecture3.html#adding-context"><i class="fa fa-check"></i><b>3.3.5</b> Adding Context</a></li>
+<li class="chapter" data-level="3.3.6" data-path="lecture3.html"><a href="lecture3.html#saving-your-map"><i class="fa fa-check"></i><b>3.3.6</b> Saving Your Map</a></li>
+<li class="chapter" data-level="3.3.7" data-path="lecture3.html"><a href="lecture3.html#interactive-mapping"><i class="fa fa-check"></i><b>3.3.7</b> Interactive Mapping</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="lecture3.html"><a href="lecture3.html#introduction-to-tidycensus"><i class="fa fa-check"></i><b>3.4</b> Introduction to TIDYCENSUS</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="lecture3.html"><a href="lecture3.html#geography-in-tidycensus"><i class="fa fa-check"></i><b>3.4.1</b> Geography in Tidycensus</a></li>
+<li class="chapter" data-level="3.4.2" data-path="lecture3.html"><a href="lecture3.html#searching-for-variables-in-tidycensus"><i class="fa fa-check"></i><b>3.4.2</b> Searching for variables in Tidycensus</a></li>
+<li class="chapter" data-level="3.4.3" data-path="lecture3.html"><a href="lecture3.html#extracting-the-data-in-tidycensus"><i class="fa fa-check"></i><b>3.4.3</b> Extracting the data in Tidycensus</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="lecture3.html"><a href="lecture3.html#introduction-to-shapefile-and-tigris"><i class="fa fa-check"></i><b>3.5</b> Introduction to Shapefile and Tigris</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="lecture4.html"><a href="lecture4.html"><i class="fa fa-check"></i><b>4</b> Basic GIS Operations</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="lecture4.html"><a href="lecture4.html#new-haven-data"><i class="fa fa-check"></i><b>4.1</b> New Haven Data</a></li>
+<li class="chapter" data-level="4.2" data-path="lecture4.html"><a href="lecture4.html#sec1"><i class="fa fa-check"></i><b>4.2</b> Spatial Clip and Intersection Operations</a></li>
+<li class="chapter" data-level="4.3" data-path="lecture4.html"><a href="lecture4.html#sec2"><i class="fa fa-check"></i><b>4.3</b> Buffers and Features</a></li>
+<li class="chapter" data-level="4.4" data-path="lecture4.html"><a href="lecture4.html#sec3"><i class="fa fa-check"></i><b>4.4</b> Merging Spatial Features</a></li>
+<li class="chapter" data-level="4.5" data-path="lecture4.html"><a href="lecture4.html#point-in-polygon-and-area-calculations"><i class="fa fa-check"></i><b>4.5</b> Point-In-Polygon and Area Calculations</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="lecture4.html"><a href="lecture4.html#point-in-polygon"><i class="fa fa-check"></i><b>4.5.1</b> Point-In-Polygon</a></li>
+<li class="chapter" data-level="4.5.2" data-path="lecture4.html"><a href="lecture4.html#area-calculations"><i class="fa fa-check"></i><b>4.5.2</b> Area Calculations</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="lecture4.html"><a href="lecture4.html#creating-distance-attributes"><i class="fa fa-check"></i><b>4.6</b> Creating Distance Attributes</a></li>
+<li class="chapter" data-level="4.7" data-path="lecture4.html"><a href="lecture4.html#distanceaccessibility-analysis"><i class="fa fa-check"></i><b>4.7</b> Distance/Accessibility Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="introduction-to-raster-in-r.html"><a href="introduction-to-raster-in-r.html"><i class="fa fa-check"></i><b>5</b> Introduction to Raster in R</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="introduction-to-raster-in-r.html"><a href="introduction-to-raster-in-r.html#what-are-we-doing-today"><i class="fa fa-check"></i><b>5.1</b> What are we doing today:</a></li>
+<li class="chapter" data-level="5.2" data-path="introduction-to-raster-in-r.html"><a href="introduction-to-raster-in-r.html#learning-objectives"><i class="fa fa-check"></i><b>5.2</b> Learning Objectives</a></li>
+<li class="chapter" data-level="5.3" data-path="introduction-to-raster-in-r.html"><a href="introduction-to-raster-in-r.html#things-youll-need-to-complete-this-tutorial"><i class="fa fa-check"></i><b>5.3</b> Things You’ll Need To Complete This Tutorial</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="introduction-to-raster-in-r.html"><a href="introduction-to-raster-in-r.html#install-r-packages"><i class="fa fa-check"></i><b>5.3.1</b> Install R Packages</a></li>
+<li class="chapter" data-level="5.3.2" data-path="introduction-to-raster-in-r.html"><a href="introduction-to-raster-in-r.html#download-data"><i class="fa fa-check"></i><b>5.3.2</b> Download Data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="introduction-to-raster-in-r.html"><a href="introduction-to-raster-in-r.html#about-raster-data"><i class="fa fa-check"></i><b>5.4</b> About Raster Data</a></li>
+<li class="chapter" data-level="5.5" data-path="introduction-to-raster-in-r.html"><a href="introduction-to-raster-in-r.html#raster-data-in-r"><i class="fa fa-check"></i><b>5.5</b> Raster Data in R</a></li>
+<li class="chapter" data-level="5.6" data-path="introduction-to-raster-in-r.html"><a href="introduction-to-raster-in-r.html#open-a-raster-in-r"><i class="fa fa-check"></i><b>5.6</b> Open a Raster in R</a></li>
+<li class="chapter" data-level="5.7" data-path="introduction-to-raster-in-r.html"><a href="introduction-to-raster-in-r.html#types-of-data-stored-in-raster-format"><i class="fa fa-check"></i><b>5.7</b> Types of Data Stored in Raster Format</a></li>
+<li class="chapter" data-level="5.8" data-path="introduction-to-raster-in-r.html"><a href="introduction-to-raster-in-r.html#what-is-a-geotiff"><i class="fa fa-check"></i><b>5.8</b> What is a GeoTIFF??</a></li>
+<li class="chapter" data-level="5.9" data-path="introduction-to-raster-in-r.html"><a href="introduction-to-raster-in-r.html#coordinate-reference-system"><i class="fa fa-check"></i><b>5.9</b> Coordinate Reference System</a></li>
+<li class="chapter" data-level="5.10" data-path="introduction-to-raster-in-r.html"><a href="introduction-to-raster-in-r.html#what-makes-spatial-data-line-up-on-a-map"><i class="fa fa-check"></i><b>5.10</b> What Makes Spatial Data Line Up On A Map?</a></li>
+<li class="chapter" data-level="5.11" data-path="introduction-to-raster-in-r.html"><a href="introduction-to-raster-in-r.html#view-raster-coordinate-reference-system-crs-in-r"><i class="fa fa-check"></i><b>5.11</b> View Raster Coordinate Reference System (CRS) in R</a></li>
+<li class="chapter" data-level="5.12" data-path="introduction-to-raster-in-r.html"><a href="introduction-to-raster-in-r.html#extent"><i class="fa fa-check"></i><b>5.12</b> Extent</a></li>
+<li class="chapter" data-level="5.13" data-path="introduction-to-raster-in-r.html"><a href="introduction-to-raster-in-r.html#resolution"><i class="fa fa-check"></i><b>5.13</b> Resolution</a></li>
+<li class="chapter" data-level="5.14" data-path="introduction-to-raster-in-r.html"><a href="introduction-to-raster-in-r.html#calculate-raster-min-and-max-values"><i class="fa fa-check"></i><b>5.14</b> Calculate Raster Min and Max Values</a></li>
+<li class="chapter" data-level="5.15" data-path="introduction-to-raster-in-r.html"><a href="introduction-to-raster-in-r.html#nodata-values-in-rasters"><i class="fa fa-check"></i><b>5.15</b> NoData Values in Rasters</a></li>
+<li class="chapter" data-level="5.16" data-path="introduction-to-raster-in-r.html"><a href="introduction-to-raster-in-r.html#bad-data-values-in-rasters"><i class="fa fa-check"></i><b>5.16</b> Bad Data Values in Rasters</a>
+<ul>
+<li class="chapter" data-level="5.16.1" data-path="introduction-to-raster-in-r.html"><a href="introduction-to-raster-in-r.html#find-bad-data-values"><i class="fa fa-check"></i><b>5.16.1</b> Find Bad Data Values</a></li>
+</ul></li>
+<li class="chapter" data-level="5.17" data-path="introduction-to-raster-in-r.html"><a href="introduction-to-raster-in-r.html#create-a-histogram-of-raster-values"><i class="fa fa-check"></i><b>5.17</b> Create A Histogram of Raster Values</a></li>
+<li class="chapter" data-level="5.18" data-path="introduction-to-raster-in-r.html"><a href="introduction-to-raster-in-r.html#raster-bands"><i class="fa fa-check"></i><b>5.18</b> Raster Bands</a></li>
+<li class="chapter" data-level="5.19" data-path="introduction-to-raster-in-r.html"><a href="introduction-to-raster-in-r.html#view-raster-file-attributes"><i class="fa fa-check"></i><b>5.19</b> View Raster File Attributes</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="introduction-to-kernel-density-estimation.html"><a href="introduction-to-kernel-density-estimation.html"><i class="fa fa-check"></i><b>6</b> Introduction to Kernel Density Estimation</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="introduction-to-kernel-density-estimation.html"><a href="introduction-to-kernel-density-estimation.html#point-patterns"><i class="fa fa-check"></i><b>6.1</b> Point Patterns</a></li>
+<li class="chapter" data-level="6.2" data-path="introduction-to-kernel-density-estimation.html"><a href="introduction-to-kernel-density-estimation.html#surfaces-showing-where-events-are-more-likely-to-happen"><i class="fa fa-check"></i><b>6.2</b> Surfaces showing where events are more likely to happen</a></li>
+<li class="chapter" data-level="6.3" data-path="introduction-to-kernel-density-estimation.html"><a href="introduction-to-kernel-density-estimation.html#kernel-density-estimation-kde"><i class="fa fa-check"></i><b>6.3</b> Kernel Density Estimation (KDE)</a></li>
+<li class="chapter" data-level="6.4" data-path="introduction-to-kernel-density-estimation.html"><a href="introduction-to-kernel-density-estimation.html#section"><i class="fa fa-check"></i><b>6.4</b> </a></li>
+<li class="chapter" data-level="6.5" data-path="introduction-to-kernel-density-estimation.html"><a href="introduction-to-kernel-density-estimation.html#how-to-choose-bandwidth"><i class="fa fa-check"></i><b>6.5</b> How to choose bandwidth</a></li>
+<li class="chapter" data-level="6.6" data-path="introduction-to-kernel-density-estimation.html"><a href="introduction-to-kernel-density-estimation.html#lets-look-again-at-the-breach-data"><i class="fa fa-check"></i><b>6.6</b> Let’s look again at the Breach data…</a></li>
+<li class="chapter" data-level="6.7" data-path="introduction-to-kernel-density-estimation.html"><a href="introduction-to-kernel-density-estimation.html#how-to-calculate-kdes"><i class="fa fa-check"></i><b>6.7</b> How to calculate KDEs</a></li>
+<li class="chapter" data-level="6.8" data-path="introduction-to-kernel-density-estimation.html"><a href="introduction-to-kernel-density-estimation.html#using-kde-for-comparisons"><i class="fa fa-check"></i><b>6.8</b> Using KDE for comparisons</a>
+<ul>
+<li class="chapter" data-level="6.8.1" data-path="introduction-to-kernel-density-estimation.html"><a href="introduction-to-kernel-density-estimation.html#operations-for-comparing-kde"><i class="fa fa-check"></i><b>6.8.1</b> Operations for comparing KDE</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a>
+<ul>
+<li class="chapter" data-level="6.9" data-path="references.html"><a href="references.html#r-markdown"><i class="fa fa-check"></i><b>6.9</b> R Markdown</a></li>
+<li class="chapter" data-level="6.10" data-path="references.html"><a href="references.html#including-plots"><i class="fa fa-check"></i><b>6.10</b> Including Plots</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">test</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">test</h1>
+<p class="author"><em>Emily Peterson &amp; Alex Edwards</em></p>
+<p class="date"><em>2023-10-11</em></p>
+</div>
+<div id="info-532-advanced-geographic-information-systems-fall-2023" class="section level1 unnumbered hasAnchor">
+<h1>INFO 532: Advanced Geographic Information Systems Fall 2023<a href="index.html#info-532-advanced-geographic-information-systems-fall-2023" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><img src="fig/plot1.jpg" width="50%" style="display: block; margin: auto;" /></p>
+<p>This <em>Advanced GIS</em> Fall 2023 class is a project-based exploration of advanced topics in GIS and geospatial technology, with a focus on spatial modeling, advanced spatial analysis and geoprocessing, spatial data manipulation, and geocomputation. For information on course expectations, assignments, grading, and schedule, please review the course syllabus listed on Canvas. We will use this e-book for lectures, and in-class activities. All course content will be housed in this book for your reference.</p>
+<p>Advanced GIS analysis methods covered in this course include: (1) spatial data wrangling, (2) point data analysis, (3) area data analysis, (4) raster data, (5) spatial interpolation, (6) spatial autocorrelation.</p>
+<p>There are two sections to this class (in-person and asynchronous). Synchronous sessions meets Mondays and Wednesdays 10:00-11:50 am in GCR P45. The in-person session classes are broken down into 2 components. The first half of the class will be lecture, and the second half of the class will be used as “lab-time” for you to work on projects. Students enrolled in the asynchronous are welcome to join the in-person class when they can if extra help is needed.</p>
+<div id="about-the-class" class="section level2 unnumbered hasAnchor">
+<h2>About the class<a href="index.html#about-the-class" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="prerequisites" class="section level3 unnumbered hasAnchor">
+<h3>Prerequisites<a href="index.html#prerequisites" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>INFO 530 completion. Many of the concepts learned in INFO 530 will carry forward into this class.</p></li>
+<li><p>R and RStudio installation. We will use R as our programming language for this course.</p></li>
+<li><p>Not required but may be helpful:</p>
+<ul>
+<li>Brunsdon, C. (2018). An introduction to r for spatial analysis and mapping (2nd edition). SAGE Publications.</li>
+<li>Comber and Brunson (2021) Geographical Data Science and Spatial Data Analysis: An Introduction in R. Sage. London.</li>
+</ul></li>
+</ul>
+</div>
+<div id="grading" class="section level3 unnumbered hasAnchor">
+<h3>Grading<a href="index.html#grading" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>4 labs: 40% (one lab per week)</li>
+<li>1 Case Study report (and presentation for in-person class): 50%</li>
+<li>Participation in class activities, discussion boards, etc. (required): 10%</li>
+</ul>
+</div>
+<div id="labs" class="section level3 unnumbered hasAnchor">
+<h3>Labs<a href="index.html#labs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Use RStudio and turn in a Markdown file.</li>
+<li>Post HW on Canvass</li>
+<li>Labs are due Wednesday 10 AM.</li>
+<li><em>Important</em> Start your filename with your NAME! PLEASE PLEASE PLEASE PLEASE</li>
+<li>This is a project-based class. You will br assigned a case-study of interest, which contains both point and area data. Each lab will consist of taking the learned topics discussed in each module and applying it to your project application. We will define the exact output to be submitted for each lab.</li>
+</ul>
+</div>
+<div id="how-do-i-get-help" class="section level3 unnumbered hasAnchor">
+<h3>How do I get help?<a href="index.html#how-do-i-get-help" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Direct emails can get lost so send messages through Canvas.</li>
+<li>Post questions on discussion board for labs. Others may have the same question.</li>
+<li>If you have a similar question to one posted, please tag that post.</li>
+<li>If you know the answer to a posted question, please feel free to post a response.</li>
+<li>Links can be especially helpful for students, TAs, and instructor.</li>
+<li>I will do MY BEST to check for posts/emails each morning and evening and during office hours.</li>
+<li>**Important: Do not wait until last minute. TA and instructor may not be available to answer questions the morning labs are due.*</li>
+<li>Please send me an email to schedule time during my office hours.</li>
+<li>Real life is important. If you are having trouble with the course, or if you need some added flexibility due to real life, feel free to come to me, and I will accomodate as best I can.</li>
+</ul>
+<p>Instructor E-mail: (<a href="mailto:emily.nancy.peterson@emory.edu" class="email">emily.nancy.peterson@emory.edu</a>)</p>
+<p>TA E-mail: (<a href="mailto:amy.moore@emory.edu" class="email">amy.moore@emory.edu</a>)</p>
+</div>
+<div id="resources-for-students" class="section level3 unnumbered hasAnchor">
+<h3>Resources for students<a href="index.html#resources-for-students" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><a href="https://www.sph.emory.edu/rollins-life/resources/index.html">RSPH Academic Resources</a></li>
+<li><a href="https://www.gs.emory.edu/academics/elsp/index.html">English Language Support Program</a></li>
+<li><a href="https://writingcenter.emory.edu/students/index.html">Emory Writing Center</a></li>
+<li>For MS students in RSPH
+<ul>
+<li>(<a href="https://www.sph.emory.edu/rollins-life/resources/international-students/" class="uri">https://www.sph.emory.edu/rollins-life/resources/international-students/</a>)</li>
+<li>(<a href="https://www.sph.emory.edu/rollins-life/resources/academic-writing-resources/index.html" class="uri">https://www.sph.emory.edu/rollins-life/resources/academic-writing-resources/index.html</a>)</li>
+</ul></li>
+</ul>
+</div>
+<div id="diversity-and-inclusion-statement" class="section level3 unnumbered hasAnchor">
+<h3>Diversity and Inclusion Statement<a href="index.html#diversity-and-inclusion-statement" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>At its core, this course embraces a multiplicity of voices and perspectives. We respect people from all backgrounds and recognize the differences among ourselves, including racial and ethnic identities, religious practices, and gender expressions. Please let me know what name you like to be called and your gender pronouns.</p>
+<p>We all come from different backgrounds and interests. In this course, it is essential to be inclusive of all who have come to learn. We all can learn from one another, and this is a safe space to share our views and educate one another on accepting and inclusive language.</p>
+<p>Please use NAMECOACH on Canvas to help learn how to say your name, and please bare with me if I do not get it easily. I have a terrible memory.</p>
+</div>
+<div id="using-this-notebook" class="section level3 unnumbered hasAnchor">
+<h3>Using this notebook<a href="index.html#using-this-notebook" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This notebook contains the lectures for the class. All lectures will be recorded and uploaded to Canvas for each module. At the end of each module a lab assignment is included.</p>
+<div class="rmdnote">
+<p><strong>Important: This notebook will be revised and edited throughout the semester depending on the pace of the class and additional notes that may be found helpful.</strong></p>
+</div>
+<p><img src="images/by-nc-sa.png" alt="Creative Commons License" /><br />
+This eBook is licensed under the <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="introduction-to-gis.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/index.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

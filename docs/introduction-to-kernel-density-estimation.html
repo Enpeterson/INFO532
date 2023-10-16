@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Module 6 Introduction to Kernel Density Estimation | INFO 532: Advanced GIS</title>
+<meta name="author" content="Emily Peterson &amp; Alex Edwards">
+<meta name="description" content="Motivations for statistical analyses To explore and visualize data. To create and calibrate models of the process generating the data. To test hypotheses related to the processes generating the...">
+<meta name="generator" content="bookdown 0.35 with bs4_book()">
+<meta property="og:title" content="Module 6 Introduction to Kernel Density Estimation | INFO 532: Advanced GIS">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Motivations for statistical analyses To explore and visualize data. To create and calibrate models of the process generating the data. To test hypotheses related to the processes generating the...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Module 6 Introduction to Kernel Density Estimation | INFO 532: Advanced GIS">
+<meta name="twitter:description" content="Motivations for statistical analyses To explore and visualize data. To create and calibrate models of the process generating the data. To test hypotheses related to the processes generating the...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.1/transition.js"></script><script src="libs/bs3compat-0.4.1/tabs.js"></script><script src="libs/bs3compat-0.4.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">INFO 532: Advanced GIS</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">INFO 532: Advanced Geographic Information Systems Fall 2023</a></li>
+<li><a class="" href="introduction-to-gis.html"><span class="header-section-number">1</span> Introduction to GIS</a></li>
+<li><a class="" href="intro.html"><span class="header-section-number">2</span> Introduction to R</a></li>
+<li><a class="" href="lecture3.html"><span class="header-section-number">3</span> Data Wrangling</a></li>
+<li><a class="" href="lecture4.html"><span class="header-section-number">4</span> Basic GIS Operations</a></li>
+<li><a class="" href="introduction-to-raster-in-r.html"><span class="header-section-number">5</span> Introduction to Raster in R</a></li>
+<li><a class="active" href="introduction-to-kernel-density-estimation.html"><span class="header-section-number">6</span> Introduction to Kernel Density Estimation</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/Enpeterson/INFO532">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="introduction-to-kernel-density-estimation" class="section level1" number="6">
+<h1>
+<span class="header-section-number">Module 6</span> Introduction to Kernel Density Estimation<a class="anchor" aria-label="anchor" href="#introduction-to-kernel-density-estimation"><i class="fas fa-link"></i></a>
+</h1>
+<p><strong>Motivations for statistical analyses</strong></p>
+<ul>
+<li>To explore and visualize data.</li>
+<li>To create and calibrate models of the process generating the data.</li>
+<li>To test hypotheses related to the processes generating the data.</li>
+<li>The kinds of analysis related to spatial data are distinctive, i.e.
+<ul>
+<li>detection and location of clusters or events.</li>
+<li>spatial distributions of events</li>
+<li>spatial autocorrelation</li>
+<li>Are neighbors correlated?</li>
+</ul>
+</li>
+</ul>
+<div id="point-patterns" class="section level2" number="6.1">
+<h2>
+<span class="header-section-number">6.1</span> Point Patterns<a class="anchor" aria-label="anchor" href="#point-patterns"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li><p>Collections of geographical points (i.e. breaches) assumed to have been generated by a random process.</p></li>
+<li><p>Consists of a set of observed <span class="math inline">\((x,y)\)</span> coordinates.</p></li>
+<li><p>We want to assess if locations of points are related (i.e. if the points refer to locations of cases of a contagious disease, then it is likely they occur near each other and therefore not independent.)</p></li>
+<li><p>Can we say something about the population based on a finite set of data?</p></li>
+</ul>
+</div>
+<div id="surfaces-showing-where-events-are-more-likely-to-happen" class="section level2" number="6.2">
+<h2>
+<span class="header-section-number">6.2</span> Surfaces showing where events are more likely to happen<a class="anchor" aria-label="anchor" href="#surfaces-showing-where-events-are-more-likely-to-happen"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li><p>A probability density function (PDF) is a function that gives the probability (likelihood) of an event occurring at each location in your space.</p></li>
+<li><p>Gives a surface across space showing where events are more likely to happen.</p></li>
+<li>
+<p>Displayed as a raster image: Fine grid of colors where colors correspond to density or intensity of events.</p>
+<ul>
+<li>Density: The probability of an event occurring at location <span class="math inline">\(s\)</span>.</li>
+<li>Intensity: The expected number of events occurring at location <span class="math inline">\(s\)</span>.</li>
+<li>Note: Intensity <span class="math inline">\(=\)</span> number of events across all locations <span class="math inline">\(\times\)</span> Density.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="kernel-density-estimation-kde" class="section level2" number="6.3">
+<h2>
+<span class="header-section-number">6.3</span> Kernel Density Estimation (KDE)<a class="anchor" aria-label="anchor" href="#kernel-density-estimation-kde"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li><p>Let <span class="math inline">\(f(x)\)</span> denote the intensity function (expected number of cases per unit distance at location <span class="math inline">\(s\)</span>).</p></li>
+<li>
+<p>We estimate <span class="math inline">\(f(x)\)</span> via kernel estimation. What does that mean?</p>
+<ul>
+<li>Place a small “kernel” at each observed data point.
+<ul>
+<li>Spreads each observation around usually with something that looks like a normal distribution.</li>
+</ul>
+</li>
+<li>Sum kernel values to give intensity estimate at each location <span class="math inline">\(s\)</span>.</li>
+<li>KDE averages a series of small “bumps” (2 dim probability distributions) centered on each observed point.</li>
+</ul>
+</li>
+<li><p>Figure: initial points (left), bump centered on each point (middle), average of bumps giving estimate of probability density (right)</p></li>
+</ul>
+</div>
+<div id="section" class="section level2" number="6.4">
+<h2>
+<span class="header-section-number">6.4</span> <a class="anchor" aria-label="anchor" href="#section"><i class="fas fa-link"></i></a>
+</h2>
+<p>In algebraic terms, the approximation <span class="math inline">\(f(\mathbf{x})\)</span> for a given location <span class="math inline">\(\mathbf{x} = (x,y)\)</span> is given by: <span class="math display">\[\hat{f}(x) = \hat{f}(x,y) = \frac{1}{n \cdot b_x \cdot b_y} \sum_i k\left(\frac{x-x_i}{b_x}, \frac{y-y_i}{b_y}\right)\]</span></p>
+<ul>
+<li>Kernel Function: <span class="math inline">\(k\left(\frac{x-x_i}{b_x}, \frac{y-y_i}{b_y}\right)\)</span> creates the bumps. Must be a non-negative function.</li>
+<li>
+<span class="math inline">\(i=\)</span> location index.</li>
+<li>The entire equation describes the “bump averaging process”.</li>
+</ul>
+<p><span class="math inline">\(b=\)</span> Bandwidth
+- Related to the variance of the kernel (how wide it is?)
+- How much do we spread each observation?
+- Controls the smoothness of the density estimate (Larger <span class="math inline">\(b\)</span> gives smoother surface)
+- <span class="math inline">\(b_y, b_x\)</span> refer to bandwidths that control how much you want to smooth the probability density surface. Lower values of <span class="math inline">\(b's\)</span> give spiky distributions and high values flatten the distribution.</p>
+<ul>
+<li>Figure: too small <span class="math inline">\(b's\)</span> (left). appropriate <span class="math inline">\(b's\)</span> (middle), too high (right)</li>
+</ul>
+</div>
+<div id="how-to-choose-bandwidth" class="section level2" number="6.5">
+<h2>
+<span class="header-section-number">6.5</span> How to choose bandwidth<a class="anchor" aria-label="anchor" href="#how-to-choose-bandwidth"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>One obvious question is how to choose the bandwidth given your dataset <span class="math inline">\(\mathbf{x}_i\)</span>.</li>
+<li>Here is general rule of thumb: <span class="math display">\[b_x = s_x \left(\frac{2}{3n}\right) ^{1/6}\]</span> <span class="math display">\[b_y = s_y \left(\frac{2}{3n}\right) ^{1/6}\]</span>
+</li>
+</ul>
+<p>where <span class="math inline">\(s_x, s_y\)</span> is the standard deviation of the <span class="math inline">\(x_i\)</span> and <span class="math inline">\(y_i\)</span>.</p>
+</div>
+<div id="lets-look-again-at-the-breach-data" class="section level2" number="6.6">
+<h2>
+<span class="header-section-number">6.6</span> Let’s look again at the Breach data…<a class="anchor" aria-label="anchor" href="#lets-look-again-at-the-breach-data"><i class="fas fa-link"></i></a>
+</h2>
+<p>(First you need to install a package from Github using code below)</p>
+<div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span> <span class="co"># install.packages("remotes")</span></span>
+<span> <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"mtennekes/oldtmaptools"</span><span class="op">)</span></span></code></pre></div>
+<p>Steps to estimate the KDE:
+1. Take each blue point.
+2. Create a small distribution (bump) around each point, usually a normal distn.
+3. Average across the bumps to calculate KDE.</p>
+<div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">GISTools</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/edzer/sp/">sp</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-forge.r-project.org/projects/rgeos/">rgeos</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-tmap.github.io/tmap/">tmap</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mtennekes/tmaptools_archive">oldtmaptools</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Get the data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">newhaven</span><span class="op">)</span></span>
+<span><span class="co"># look at it</span></span>
+<span><span class="co"># select 'view' mode</span></span>
+<span><span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tmap_mode.html">tmap_mode</a></span><span class="op">(</span><span class="st">'view'</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tmap_options.html">tmap_options</a></span><span class="op">(</span>check.and.fix <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co"># Create the map of blocks and incidents</span></span>
+<span><span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">blocks</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_polygons.html">tm_borders</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">breach</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_symbols.html">tm_dots</a></span><span class="op">(</span>col<span class="op">=</span><span class="st">'navyblue'</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="how-to-calculate-kdes" class="section level2" number="6.7">
+<h2>
+<span class="header-section-number">6.7</span> How to calculate KDEs<a class="anchor" aria-label="anchor" href="#how-to-calculate-kdes"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>The function to compute KDE is <em>map_smooth</em> from the <em>oldtmaptools</em> packages.</li>
+<li>This estimates the value of the density of over a grid of points, and returns a list with the following elements:
+<ul>
+<li>a raster object: a raster grid of values for the KDEs</li>
+<li>a contour object: a set of contour lines</li>
+<li>a polygon object: a list of polygons</li>
+</ul>
+</li>
+</ul>
+<div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Function to choose bandwidth according Bowman and Azzalini / Scott's rule</span></span>
+<span><span class="co"># for use with &lt;smooth_map&gt; in &lt;tmaptools&gt;</span></span>
+<span></span>
+<span><span class="va">choose_bw</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">spdf</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sp/man/coordinates.html">coordinates</a></span><span class="op">(</span><span class="va">spdf</span><span class="op">)</span></span>
+<span>  <span class="va">sigma</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">X</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>  <span class="op">*</span> <span class="op">(</span><span class="fl">2</span> <span class="op">/</span> <span class="op">(</span><span class="fl">3</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">^</span> <span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">6</span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">sigma</span><span class="op">/</span><span class="fl">1000</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="co">#Calculate KDE</span></span>
+<span>  <span class="co"># bandwith argument: vector of length 2</span></span>
+<span>  <span class="co"># cover argument: geometric object containing the boundaries of locations to estimate KDE.</span></span>
+<span>  <span class="co">#smooth_map expects bandwidth in kms, so we divide by 1000 in our bw function.</span></span>
+<span></span>
+<span><span class="va">breach_dens</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/oldtmaptools/man/smooth_map.html">smooth_map</a></span><span class="op">(</span><span class="va">breach</span>,cover<span class="op">=</span><span class="va">blocks</span>, bandwidth <span class="op">=</span> <span class="fu">choose_bw</span><span class="op">(</span><span class="va">breach</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Let’s look at what we have created</p>
+<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">breach_dens</span><span class="op">$</span><span class="va">raster</span></span>
+<span><span class="va">breach_dens</span><span class="op">$</span><span class="va">iso</span></span>
+<span><span class="va">breach_dens</span><span class="op">$</span><span class="va">polygons</span></span></code></pre></div>
+<p>Plot the KDE outcomes in raster form.</p>
+<div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#Plot the KDE</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">breach_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf</a></span><span class="op">(</span><span class="va">breach</span><span class="op">)</span></span>
+<span><span class="co"># Number plotted is expected number of cases per unit area</span></span>
+<span><span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">breach_dens</span><span class="op">$</span><span class="va">raster</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_raster.html">tm_raster</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">breach_sf</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_symbols.html">tm_dots</a></span><span class="op">(</span>col<span class="op">=</span><span class="st">"blue"</span><span class="op">)</span></span></code></pre></div>
+<p>Note the count caption indicates probability densities have been rescaled to represent intensities- by multiplying the KDE by number of cases.</p>
+<p>Plot the KDE outcomes using contour lines.</p>
+<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tmap_mode.html">tmap_mode</a></span><span class="op">(</span><span class="st">'view'</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tmap_options.html">tmap_options</a></span><span class="op">(</span>check.and.fix <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co"># Create the map of blocks and incidents</span></span>
+<span><span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">blocks</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_polygons.html">tm_borders</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">breach_dens</span><span class="op">$</span><span class="va">iso</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_lines.html">tm_lines</a></span><span class="op">(</span>col<span class="op">=</span><span class="st">"darkred"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<p>Try plotting the KDE outcomes using polygons</p>
+<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#Add your code here</span></span>
+<span><span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tmap_mode.html">tmap_mode</a></span><span class="op">(</span><span class="st">'view'</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tmap_options.html">tmap_options</a></span><span class="op">(</span>check.and.fix <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co"># Create the map of blocks and incidents</span></span>
+<span><span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">blocks</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_polygons.html">tm_borders</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">breach_dens</span><span class="op">$</span><span class="va">polygons</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_polygons.html">tm_fill</a></span><span class="op">(</span>col<span class="op">=</span><span class="st">"level"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="using-kde-for-comparisons" class="section level2" number="6.8">
+<h2>
+<span class="header-section-number">6.8</span> Using KDE for comparisons<a class="anchor" aria-label="anchor" href="#using-kde-for-comparisons"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>We can use KDE to compare spatial distributions across groups.</li>
+<li>In <em>newhaven data</em> we have data relating to (1) break-ins using forced entry, and (2) break-ins that do not.</li>
+<li>We may be interested in comparing the spatial distribution of the two groups across the area.</li>
+<li>Important: To compare spatial distributions, we need to specify a set of levels for intensity contours to be equal.</li>
+</ul>
+<div id="operations-for-comparing-kde" class="section level3" number="6.8.1">
+<h3>
+<span class="header-section-number">6.8.1</span> Operations for comparing KDE<a class="anchor" aria-label="anchor" href="#operations-for-comparing-kde"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>Specify set of level for intensity contours to allow comparisons.</li>
+<li>Compute KDE.</li>
+<li>Draw each of the two maps</li>
+<li>Use <em>tmap_arrange()</em> to draw multiple maps.</li>
+</ol>
+<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># set contour levels</span></span>
+<span><span class="va">contours</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1.4</span>, by <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#calculate KDEs for both groups</span></span>
+<span><span class="va">brn_dens</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/oldtmaptools/man/smooth_map.html">smooth_map</a></span><span class="op">(</span><span class="va">burgres.n</span>, cover <span class="op">=</span> <span class="va">blocks</span>, breaks <span class="op">=</span> <span class="va">contours</span>, style <span class="op">=</span> <span class="st">"fixed"</span>, bandwidth <span class="op">=</span> <span class="fu">choose_bw</span><span class="op">(</span><span class="va">burgres.n</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">brf_dens</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/oldtmaptools/man/smooth_map.html">smooth_map</a></span><span class="op">(</span><span class="va">burgres.f</span>, cover <span class="op">=</span> <span class="va">blocks</span>, breaks <span class="op">=</span> <span class="va">contours</span>, style <span class="op">=</span> <span class="st">"fixed"</span>, bandwidth <span class="op">=</span> <span class="fu">choose_bw</span><span class="op">(</span><span class="va">burgres.f</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#Create the maps and store them in variables</span></span>
+<span><span class="va">dn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">blocks</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_polygons.html">tm_borders</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">brn_dens</span><span class="op">$</span><span class="va">polygons</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_polygons.html">tm_fill</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"level"</span>, alpha <span class="op">=</span> <span class="fl">0.8</span>, title <span class="op">=</span> <span class="st">"non-forced break-ins"</span><span class="op">)</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">blocks</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_polygons.html">tm_borders</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">brf_dens</span><span class="op">$</span><span class="va">polygons</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_polygons.html">tm_fill</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"level"</span>, alpha <span class="op">=</span> <span class="fl">0.8</span>, title <span class="op">=</span> <span class="st">"forced break-ins"</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tmap_arrange.html">tmap_arrange</a></span><span class="op">(</span><span class="va">dn</span>, <span class="va">df</span><span class="op">)</span></span></code></pre></div>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="introduction-to-raster-in-r.html"><span class="header-section-number">5</span> Introduction to Raster in R</a></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#introduction-to-kernel-density-estimation"><span class="header-section-number">6</span> Introduction to Kernel Density Estimation</a></li>
+<li><a class="nav-link" href="#point-patterns"><span class="header-section-number">6.1</span> Point Patterns</a></li>
+<li><a class="nav-link" href="#surfaces-showing-where-events-are-more-likely-to-happen"><span class="header-section-number">6.2</span> Surfaces showing where events are more likely to happen</a></li>
+<li><a class="nav-link" href="#kernel-density-estimation-kde"><span class="header-section-number">6.3</span> Kernel Density Estimation (KDE)</a></li>
+<li><a class="nav-link" href="#section"><span class="header-section-number">6.4</span></a></li>
+<li><a class="nav-link" href="#how-to-choose-bandwidth"><span class="header-section-number">6.5</span> How to choose bandwidth</a></li>
+<li><a class="nav-link" href="#lets-look-again-at-the-breach-data"><span class="header-section-number">6.6</span> Let’s look again at the Breach data…</a></li>
+<li><a class="nav-link" href="#how-to-calculate-kdes"><span class="header-section-number">6.7</span> How to calculate KDEs</a></li>
+<li>
+<a class="nav-link" href="#using-kde-for-comparisons"><span class="header-section-number">6.8</span> Using KDE for comparisons</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#operations-for-comparing-kde"><span class="header-section-number">6.8.1</span> Operations for comparing KDE</a></li></ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/Enpeterson/INFO532/blob//06-KDE.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/Enpeterson/INFO532/edit//06-KDE.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>INFO 532: Advanced GIS</strong>" was written by Emily Peterson &amp; Alex Edwards. It was last built on Last updated: 2023-10-16.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

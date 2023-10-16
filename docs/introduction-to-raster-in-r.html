@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Module 5 Introduction to Raster in R | INFO 532: Advanced GIS</title>
+<meta name="author" content="Emily Peterson &amp; Alex Edwards">
+<meta name="description" content="5.1 What are we doing today: In this tutorial, we will review the fundamental principles, packages and metadata/raster attributes that are needed to work with raster data in R. We discuss the...">
+<meta name="generator" content="bookdown 0.35 with bs4_book()">
+<meta property="og:title" content="Module 5 Introduction to Raster in R | INFO 532: Advanced GIS">
+<meta property="og:type" content="book">
+<meta property="og:description" content="5.1 What are we doing today: In this tutorial, we will review the fundamental principles, packages and metadata/raster attributes that are needed to work with raster data in R. We discuss the...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Module 5 Introduction to Raster in R | INFO 532: Advanced GIS">
+<meta name="twitter:description" content="5.1 What are we doing today: In this tutorial, we will review the fundamental principles, packages and metadata/raster attributes that are needed to work with raster data in R. We discuss the...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.1/transition.js"></script><script src="libs/bs3compat-0.4.1/tabs.js"></script><script src="libs/bs3compat-0.4.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">INFO 532: Advanced GIS</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">INFO 532: Advanced Geographic Information Systems Fall 2023</a></li>
+<li><a class="" href="introduction-to-gis.html"><span class="header-section-number">1</span> Introduction to GIS</a></li>
+<li><a class="" href="intro.html"><span class="header-section-number">2</span> Introduction to R</a></li>
+<li><a class="" href="lecture3.html"><span class="header-section-number">3</span> Data Wrangling</a></li>
+<li><a class="" href="lecture4.html"><span class="header-section-number">4</span> Basic GIS Operations</a></li>
+<li><a class="active" href="introduction-to-raster-in-r.html"><span class="header-section-number">5</span> Introduction to Raster in R</a></li>
+<li><a class="" href="introduction-to-kernel-density-estimation.html"><span class="header-section-number">6</span> Introduction to Kernel Density Estimation</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/Enpeterson/INFO532">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="introduction-to-raster-in-r" class="section level1" number="5">
+<h1>
+<span class="header-section-number">Module 5</span> Introduction to Raster in R<a class="anchor" aria-label="anchor" href="#introduction-to-raster-in-r"><i class="fas fa-link"></i></a>
+</h1>
+<div id="what-are-we-doing-today" class="section level2" number="5.1">
+<h2>
+<span class="header-section-number">5.1</span> What are we doing today:<a class="anchor" aria-label="anchor" href="#what-are-we-doing-today"><i class="fas fa-link"></i></a>
+</h2>
+<p>In this tutorial, we will review the fundamental principles, packages and metadata/raster attributes that are needed to work with raster data in R. We discuss the three core metadata elements that we need to understand to work with rasters in R: <strong>CRS</strong>, <strong>extent</strong> and <strong>resolution</strong>. It also explores missing and bad data values as stored in a raster and how R handles these elements. Finally, it introduces the GeoTiff file format.</p>
+</div>
+<div id="learning-objectives" class="section level2" number="5.2">
+<h2>
+<span class="header-section-number">5.2</span> Learning Objectives<a class="anchor" aria-label="anchor" href="#learning-objectives"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li><p>Understand what a raster dataset is and its fundamental attributes.</p></li>
+<li><p>Know how to explore raster attributes in R.</p></li>
+<li><p>Be able to import rasters into R using the <code>raster</code> package.</p></li>
+<li><p>Be able to quickly plot a raster file in R.</p></li>
+<li><p>Understand the difference between single- and multi-band rasters.</p></li>
+</ul>
+</div>
+<div id="things-youll-need-to-complete-this-tutorial" class="section level2" number="5.3">
+<h2>
+<span class="header-section-number">5.3</span> Things You’ll Need To Complete This Tutorial<a class="anchor" aria-label="anchor" href="#things-youll-need-to-complete-this-tutorial"><i class="fas fa-link"></i></a>
+</h2>
+<div id="install-r-packages" class="section level3" number="5.3.1">
+<h3>
+<span class="header-section-number">5.3.1</span> Install R Packages<a class="anchor" aria-label="anchor" href="#install-r-packages"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>raster: install.packages(“raster”)</li>
+<li>rgdal: install.packages(“rgdal”)</li>
+</ul>
+</div>
+<div id="download-data" class="section level3" number="5.3.2">
+<h3>
+<span class="header-section-number">5.3.2</span> Download Data<a class="anchor" aria-label="anchor" href="#download-data"><i class="fas fa-link"></i></a>
+</h3>
+<p><a href="https://ndownloader.figshare.com/files/3701578">NEON TEACHING DATA SUBSET: AIRBORNE REMOTE SENSING DATA</a></p>
+<p>The LiDAR and imagery data used to create this raster teaching data subset were collected over the National Ecological Observatory Network’s Harvard Forest and San Joaquin Experimental Range field sites and processed at NEON headquarters. The entire dataset can be accessed by request from the NEON Data Portal.</p>
+</div>
+</div>
+<div id="about-raster-data" class="section level2" number="5.4">
+<h2>
+<span class="header-section-number">5.4</span> About Raster Data<a class="anchor" aria-label="anchor" href="#about-raster-data"><i class="fas fa-link"></i></a>
+</h2>
+<p>Raster or “gridded” data are stored as a grid of values which are rendered on a map as pixels. Each pixel value represents an area on the Earth’s surface.</p>
+<div class="inline-figure"><img src="fig/raster_concept.png" width="50%" style="display: block; margin: auto;"></div>
+</div>
+<div id="raster-data-in-r" class="section level2" number="5.5">
+<h2>
+<span class="header-section-number">5.5</span> Raster Data in R<a class="anchor" aria-label="anchor" href="#raster-data-in-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>Let’s first import a raster dataset into R and explore its metadata. To open rasters in R, we will use the <code>raster</code> and <code>rgdal</code> packages.</p>
+<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># load libraries</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster">raster</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://rgdal.r-forge.r-project.org">rgdal</a></span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="open-a-raster-in-r" class="section level2" number="5.6">
+<h2>
+<span class="header-section-number">5.6</span> Open a Raster in R<a class="anchor" aria-label="anchor" href="#open-a-raster-in-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>We can use the <code>raster("path-to-raster-here")</code> function to open a raster in R.</p>
+<p><strong>Data Tip:</strong> OBJECT NAMES! To improve code readability, file and object names should be used that make it clear what is in the file. The data for this tutorial were collected over from Harvard Forest so we’ll use a naming convention of `datatype_HARV`.</p>
+<div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load raster into R</span></span>
+<span><span class="va">DSM_HARV</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html">raster</a></span><span class="op">(</span><span class="st">"images/HARV/DSM/HARV_dsmCrop.tif"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># View raster structure</span></span>
+<span><span class="va">DSM_HARV</span> </span></code></pre></div>
+</div>
+<div id="types-of-data-stored-in-raster-format" class="section level2" number="5.7">
+<h2>
+<span class="header-section-number">5.7</span> Types of Data Stored in Raster Format<a class="anchor" aria-label="anchor" href="#types-of-data-stored-in-raster-format"><i class="fas fa-link"></i></a>
+</h2>
+<p>Raster data can be continuous or categorical. Continuous rasters can have a range of quantitative values. Some examples of continuous rasters include:</p>
+<ol style="list-style-type: decimal">
+<li><p>Precipitation maps.</p></li>
+<li><p>Maps of tree height derived from LiDAR data.</p></li>
+<li><p>Elevation values for a region.</p></li>
+</ol>
+<p>The raster we loaded and plotted earlier was a digital surface model, or a map of the elevation for Harvard Forest derived from the <a href="https://www.neonscience.org/data-collection/airborne-remote-sensing">NEON AOP LiDAR sensor</a>.</p>
+<p>Elevation is represented as a continuous numeric variable in this map. The legend shows the continuous range of values in the data from around 320 to 400 meters.</p>
+<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># render DSM for tutorial content background</span></span>
+<span><span class="va">DSM_HARV</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html">raster</a></span><span class="op">(</span><span class="st">"images/HARV/DSM/HARV_dsmCrop.tif"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># code output here - DEM rendered on the screen</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">DSM_HARV</span>, main<span class="op">=</span><span class="st">"Continuous Elevation Map\n NEON Harvard Forest Field Site"</span><span class="op">)</span></span></code></pre></div>
+<p>Some rasters contain categorical data where each pixel represents a discrete class such as a landcover type (e.g., “forest” or “grassland”) rather than a continuous value such as elevation or temperature. Some examples of classified maps include:</p>
+<ol style="list-style-type: decimal">
+<li><p>Landcover/land-use maps.</p></li>
+<li><p>Tree height maps classified as short, medium, tall trees.</p></li>
+<li><p>Elevation maps classified as low, medium and high elevation.</p></li>
+</ol>
+<p>Map of the United States showing landcover as categorical data. Each color is a different landcover category. Source: Multi-Resolution Land Characteristics Consortium, USGS</p>
+<div class="inline-figure"><img src="fig/NLCD06_conus_lg.jpg" width="50%" style="display: block; margin: auto;"></div>
+<div id="categorical-elevation-map-of-the-neon-harvard-forest-site" class="section level4" number="5.7.0.1">
+<h4>
+<span class="header-section-number">5.7.0.1</span> Categorical Elevation Map of the NEON Harvard Forest Site<a class="anchor" aria-label="anchor" href="#categorical-elevation-map-of-the-neon-harvard-forest-site"><i class="fas fa-link"></i></a>
+</h4>
+<p>The legend of this map shows the colors representing each discrete class.</p>
+<div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Demonstration image for the tutorial</span></span>
+<span><span class="va">DSM_HARV</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html">raster</a></span><span class="op">(</span><span class="st">"images/HARV/DSM/HARV_dsmCrop.tif"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># add a color map with 5 colors</span></span>
+<span><span class="va">col</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html">terrain.colors</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co"># add breaks to the colormap (4 breaks = 3 segments)</span></span>
+<span><span class="va">brk</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">250</span>,<span class="fl">350</span>, <span class="fl">380</span>,<span class="fl">500</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Expand right side of clipping rect to make room for the legend</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>xpd <span class="op">=</span> <span class="cn">FALSE</span>,mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5.1</span>, <span class="fl">4.1</span>, <span class="fl">4.1</span>, <span class="fl">4.5</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># DEM with a custom legend</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">DSM_HARV</span>, </span>
+<span>    col<span class="op">=</span><span class="va">col</span>, </span>
+<span>    breaks<span class="op">=</span><span class="va">brk</span>, </span>
+<span>    main<span class="op">=</span><span class="st">"Classified Elevation Map\nNEON Harvard Forest Field Site"</span>,</span>
+<span>    legend <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>    <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># turn xpd back on to force the legend to fit next to the plot.</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>xpd <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co"># add a legend - but make it appear outside of the plot</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">usr</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="fl">4713700</span>,</span>
+<span>        legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"High Elevation"</span>, <span class="st">"Middle"</span>,<span class="st">"Low Elevation"</span><span class="op">)</span>, </span>
+<span>        fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html">rev</a></span><span class="op">(</span><span class="va">col</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="05-Raster_files/figure-html/unnamed-chunk-4-1.png" width="672"></div>
+</div>
+</div>
+<div id="what-is-a-geotiff" class="section level2" number="5.8">
+<h2>
+<span class="header-section-number">5.8</span> What is a GeoTIFF??<a class="anchor" aria-label="anchor" href="#what-is-a-geotiff"><i class="fas fa-link"></i></a>
+</h2>
+<p>Raster data can come in many different formats. In this tutorial, we will use the geotiff format which has the extension <code>.tif</code>. A <code>.tif</code> file stores metadata or attributes about the file as embedded <code>tif tags</code>. For instance, your camera might store a tag that describes the make and model of the camera or the date the photo was taken when it saves a <code>.tif</code>. A GeoTIFF is a standard <code>.tif</code> image format with additional spatial (georeferencing) information embedded in the file as tags. These tags can include the following raster metadata:</p>
+<ol style="list-style-type: decimal">
+<li><p>A Coordinate Reference System (<code>CRS</code>)</p></li>
+<li><p>Spatial Extent (<code>extent</code>)</p></li>
+<li><p>Values that represent missing data (<code>NoDataValue</code>)</p></li>
+<li><p>The <code>resolution</code> of the data</p></li>
+</ol>
+<p>In this tutorial we will discuss all of these metadata tags.</p>
+</div>
+<div id="coordinate-reference-system" class="section level2" number="5.9">
+<h2>
+<span class="header-section-number">5.9</span> Coordinate Reference System<a class="anchor" aria-label="anchor" href="#coordinate-reference-system"><i class="fas fa-link"></i></a>
+</h2>
+<p>The Coordinate Reference System or <code>CRS</code> tells R where the raster is located in geographic space. It also tells R what method should be used to “flatten” or project the raster in geographic space.</p>
+<p>Maps of the United States in different projections. Notice the differences in shape associated with each different projection. These differences are a direct result of the calculations used to “flatten” the data onto a 2-dimensional map. Source: M. Corey, opennews.org</p>
+<div class="inline-figure"><img src="fig/USMapDifferentProjections_MCorey_Opennews-org.jpg" width="50%" style="display: block; margin: auto;"></div>
+</div>
+<div id="what-makes-spatial-data-line-up-on-a-map" class="section level2" number="5.10">
+<h2>
+<span class="header-section-number">5.10</span> What Makes Spatial Data Line Up On A Map?<a class="anchor" aria-label="anchor" href="#what-makes-spatial-data-line-up-on-a-map"><i class="fas fa-link"></i></a>
+</h2>
+<p>There are lots of great resources that describe coordinate reference systems and projections in greater detail (read more, below). For the purposes of this activity, what is important to understand is that data from the same location but saved in <strong>different projections will not line up in any GIS or other program</strong>. Thus, it’s important when working with spatial data in a program like R to identify the coordinate reference system applied to the data and retain it throughout data processing and analysis.</p>
+</div>
+<div id="view-raster-coordinate-reference-system-crs-in-r" class="section level2" number="5.11">
+<h2>
+<span class="header-section-number">5.11</span> View Raster Coordinate Reference System (CRS) in R<a class="anchor" aria-label="anchor" href="#view-raster-coordinate-reference-system-crs-in-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>We can view the <code>CRS</code> string associated with our R object using the<code><a href="https://rdrr.io/pkg/terra/man/crs.html">crs()</a></code> method. We can assign this string to an R object, too.</p>
+<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">DSM_HARV</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html">raster</a></span><span class="op">(</span><span class="st">"images/HARV/DSM/HARV_dsmCrop.tif"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># view resolution units</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/crs.html">crs</a></span><span class="op">(</span><span class="va">DSM_HARV</span><span class="op">)</span></span></code></pre></div>
+<pre><code>Coordinate Reference System:
+Deprecated Proj.4 representation:
+ +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
+WKT2 2019 representation:
+PROJCRS["WGS 84 / UTM zone 18N",
+    BASEGEOGCRS["WGS 84",
+        DATUM["World Geodetic System 1984",
+            ELLIPSOID["WGS 84",6378137,298.257223563,
+                LENGTHUNIT["metre",1]]],
+        PRIMEM["Greenwich",0,
+            ANGLEUNIT["degree",0.0174532925199433]],
+        ID["EPSG",4326]],
+    CONVERSION["UTM zone 18N",
+        METHOD["Transverse Mercator",
+            ID["EPSG",9807]],
+        PARAMETER["Latitude of natural origin",0,
+            ANGLEUNIT["degree",0.0174532925199433],
+            ID["EPSG",8801]],
+        PARAMETER["Longitude of natural origin",-75,
+            ANGLEUNIT["degree",0.0174532925199433],
+            ID["EPSG",8802]],
+        PARAMETER["Scale factor at natural origin",0.9996,
+            SCALEUNIT["unity",1],
+            ID["EPSG",8805]],
+        PARAMETER["False easting",500000,
+            LENGTHUNIT["metre",1],
+            ID["EPSG",8806]],
+        PARAMETER["False northing",0,
+            LENGTHUNIT["metre",1],
+            ID["EPSG",8807]]],
+    CS[Cartesian,2],
+        AXIS["(E)",east,
+            ORDER[1],
+            LENGTHUNIT["metre",1]],
+        AXIS["(N)",north,
+            ORDER[2],
+            LENGTHUNIT["metre",1]],
+    USAGE[
+        SCOPE["Engineering survey, topographic mapping."],
+        AREA["Between 78°W and 72°W, northern hemisphere between equator and 84°N, onshore and offshore. Bahamas. Canada - Nunavut; Ontario; Quebec. Colombia. Cuba. Ecuador. Greenland. Haiti. Jamica. Panama. Turks and Caicos Islands. United States (USA). Venezuela."],
+        BBOX[0,-78,84,-72]],
+    ID["EPSG",32618]] </code></pre>
+<div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># assign crs to an object (class) to use for reprojection and other tasks</span></span>
+<span><span class="va">myCRS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/crs.html">crs</a></span><span class="op">(</span><span class="va">DSM_HARV</span><span class="op">)</span></span>
+<span><span class="va">myCRS</span></span></code></pre></div>
+<pre><code>Coordinate Reference System:
+Deprecated Proj.4 representation:
+ +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
+WKT2 2019 representation:
+PROJCRS["WGS 84 / UTM zone 18N",
+    BASEGEOGCRS["WGS 84",
+        DATUM["World Geodetic System 1984",
+            ELLIPSOID["WGS 84",6378137,298.257223563,
+                LENGTHUNIT["metre",1]]],
+        PRIMEM["Greenwich",0,
+            ANGLEUNIT["degree",0.0174532925199433]],
+        ID["EPSG",4326]],
+    CONVERSION["UTM zone 18N",
+        METHOD["Transverse Mercator",
+            ID["EPSG",9807]],
+        PARAMETER["Latitude of natural origin",0,
+            ANGLEUNIT["degree",0.0174532925199433],
+            ID["EPSG",8801]],
+        PARAMETER["Longitude of natural origin",-75,
+            ANGLEUNIT["degree",0.0174532925199433],
+            ID["EPSG",8802]],
+        PARAMETER["Scale factor at natural origin",0.9996,
+            SCALEUNIT["unity",1],
+            ID["EPSG",8805]],
+        PARAMETER["False easting",500000,
+            LENGTHUNIT["metre",1],
+            ID["EPSG",8806]],
+        PARAMETER["False northing",0,
+            LENGTHUNIT["metre",1],
+            ID["EPSG",8807]]],
+    CS[Cartesian,2],
+        AXIS["(E)",east,
+            ORDER[1],
+            LENGTHUNIT["metre",1]],
+        AXIS["(N)",north,
+            ORDER[2],
+            LENGTHUNIT["metre",1]],
+    USAGE[
+        SCOPE["Engineering survey, topographic mapping."],
+        AREA["Between 78°W and 72°W, northern hemisphere between equator and 84°N, onshore and offshore. Bahamas. Canada - Nunavut; Ontario; Quebec. Colombia. Cuba. Ecuador. Greenland. Haiti. Jamica. Panama. Turks and Caicos Islands. United States (USA). Venezuela."],
+        BBOX[0,-78,84,-72]],
+    ID["EPSG",32618]] </code></pre>
+<p>The <code>CRS</code> of our <code>DSM_HARV</code> object tells us that our data are in the UTM projection.</p>
+<!-- The UTM zones across the continental United States. Source: Chrismurf, wikimedia.org -->
+<!-- ```{r echo = F, fig.align='center', out.width='50%', message = F, comment = NA,warning = F} -->
+<!-- knitr::opts_chunk$set(cache = TRUE, message =F, warning =F) -->
+<!--  knitr::include_graphics("fig/Utm-zones-USA.svg.png") -->
+<!-- ``` -->
+<p>The CRS in this case is in a <code>PROJ</code> format. This means that the projection information is strung together as a series of text elements, each of which begins with a <code>+</code> sign.</p>
+<p><code>+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0</code></p>
+<p>We’ll focus on the first few components of the CRS in this tutorial.</p>
+<ul>
+<li><p><code>+proj=utm</code> The projection of the dataset. Our data are in Universal Transverse Mercator (UTM).</p></li>
+<li><p><code>+zone=18</code> The UTM projection divides up the world into zones, this element tells you which zone the data are in. Harvard Forest is in Zone 18.</p></li>
+<li><p><code>+datum=WGS84</code> The datum was used to define the center point of the projection. Our raster uses the <code>WGS84</code> datum.</p></li>
+<li><p><code>+units=m</code> This is the horizontal units that the data are in. Our units are meters.</p></li>
+</ul>
+</div>
+<div id="extent" class="section level2" number="5.12">
+<h2>
+<span class="header-section-number">5.12</span> Extent<a class="anchor" aria-label="anchor" href="#extent"><i class="fas fa-link"></i></a>
+</h2>
+<p>The spatial extent of an R spatial object represents the geographic “edge” or location that is the furthest north, south, east and west. In other words, <code>extent</code> represents the overall geographic coverage of the spatial object.</p>
+<div class="inline-figure"><img src="fig/spatial_extent.png" width="50%" style="display: block; margin: auto;"></div>
+</div>
+<div id="resolution" class="section level2" number="5.13">
+<h2>
+<span class="header-section-number">5.13</span> Resolution<a class="anchor" aria-label="anchor" href="#resolution"><i class="fas fa-link"></i></a>
+</h2>
+<p>A raster has horizontal (x and y) resolution. This resolution represents the area on the ground that each pixel covers. The units for our data are in meters. Given our data resolution is 1 x 1, this means that each pixel represents a 1 x 1 meter area on the ground.</p>
+<div class="inline-figure">
+<img src="fig/raster_resolution.png" width="50%" style="display: block; margin: auto;">
+Source: National Ecological Observatory Network</div>
+<p>The best way to view resolution units is to look at the coordinate reference system string <code><a href="https://rdrr.io/pkg/terra/man/crs.html">crs()</a></code>. Notice our data contains: <code>+units=m</code>.</p>
+<div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">DSM_HARV</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html">raster</a></span><span class="op">(</span><span class="st">"images/HARV/DSM/HARV_dsmCrop.tif"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/crs.html">crs</a></span><span class="op">(</span><span class="va">DSM_HARV</span><span class="op">)</span></span></code></pre></div>
+<pre><code>Coordinate Reference System:
+Deprecated Proj.4 representation:
+ +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
+WKT2 2019 representation:
+PROJCRS["WGS 84 / UTM zone 18N",
+    BASEGEOGCRS["WGS 84",
+        DATUM["World Geodetic System 1984",
+            ELLIPSOID["WGS 84",6378137,298.257223563,
+                LENGTHUNIT["metre",1]]],
+        PRIMEM["Greenwich",0,
+            ANGLEUNIT["degree",0.0174532925199433]],
+        ID["EPSG",4326]],
+    CONVERSION["UTM zone 18N",
+        METHOD["Transverse Mercator",
+            ID["EPSG",9807]],
+        PARAMETER["Latitude of natural origin",0,
+            ANGLEUNIT["degree",0.0174532925199433],
+            ID["EPSG",8801]],
+        PARAMETER["Longitude of natural origin",-75,
+            ANGLEUNIT["degree",0.0174532925199433],
+            ID["EPSG",8802]],
+        PARAMETER["Scale factor at natural origin",0.9996,
+            SCALEUNIT["unity",1],
+            ID["EPSG",8805]],
+        PARAMETER["False easting",500000,
+            LENGTHUNIT["metre",1],
+            ID["EPSG",8806]],
+        PARAMETER["False northing",0,
+            LENGTHUNIT["metre",1],
+            ID["EPSG",8807]]],
+    CS[Cartesian,2],
+        AXIS["(E)",east,
+            ORDER[1],
+            LENGTHUNIT["metre",1]],
+        AXIS["(N)",north,
+            ORDER[2],
+            LENGTHUNIT["metre",1]],
+    USAGE[
+        SCOPE["Engineering survey, topographic mapping."],
+        AREA["Between 78°W and 72°W, northern hemisphere between equator and 84°N, onshore and offshore. Bahamas. Canada - Nunavut; Ontario; Quebec. Colombia. Cuba. Ecuador. Greenland. Haiti. Jamica. Panama. Turks and Caicos Islands. United States (USA). Venezuela."],
+        BBOX[0,-78,84,-72]],
+    ID["EPSG",32618]] </code></pre>
+</div>
+<div id="calculate-raster-min-and-max-values" class="section level2" number="5.14">
+<h2>
+<span class="header-section-number">5.14</span> Calculate Raster Min and Max Values<a class="anchor" aria-label="anchor" href="#calculate-raster-min-and-max-values"><i class="fas fa-link"></i></a>
+</h2>
+<p>It is useful to know the minimum or maximum values of a raster dataset. In this case, given we are working with elevation data, these values represent the min/max elevation range at our site.</p>
+<p>Raster statistics are often calculated and embedded in a <code>geotiff</code> for us. However if they weren’t already calculated, we can calculate them using the <code><a href="https://rdrr.io/pkg/terra/man/minmax.html">setMinMax()</a></code> function.</p>
+<div class="sourceCode" id="cb123"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">DSM_HARV</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html">raster</a></span><span class="op">(</span><span class="st">"images/HARV/DSM/HARV_dsmCrop.tif"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># This is the code if min/max weren't calculated: </span></span>
+<span><span class="co"># DSM_HARV &lt;- setMinMax(DSM_HARV) </span></span>
+<span></span>
+<span><span class="co"># view the calculated min value</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/extremeValues.html">minValue</a></span><span class="op">(</span><span class="va">DSM_HARV</span><span class="op">)</span></span></code></pre></div>
+<pre><code>[1] 305.07</code></pre>
+<div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># view only max value</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/extremeValues.html">maxValue</a></span><span class="op">(</span><span class="va">DSM_HARV</span><span class="op">)</span></span></code></pre></div>
+<pre><code>[1] 416.07</code></pre>
+<p>We can see that the elevation at our site ranges from 305.07m to 416.07m.</p>
+</div>
+<div id="nodata-values-in-rasters" class="section level2" number="5.15">
+<h2>
+<span class="header-section-number">5.15</span> NoData Values in Rasters<a class="anchor" aria-label="anchor" href="#nodata-values-in-rasters"><i class="fas fa-link"></i></a>
+</h2>
+<p>Raster data often has a <code>NoDataValue</code> associated with it. This is a value assigned to pixels where data are missing or no data were collected.</p>
+<p>By default the shape of a raster is always square or rectangular. So if we have a dataset that has a shape that isn’t square or rectangular, some pixels at the edge of the raster will have <code>NoDataValue</code>s. This often happens when the data were collected by an airplane which only flew over some part of a defined region.</p>
+<p>In the image below, the pixels that are black have <code>NoDataValue</code>s. The camera did not collect data in these areas.</p>
+<div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># no data demonstration code - not being taught </span></span>
+<span><span class="co"># Use stack function to read in all bands</span></span>
+<span><span class="va">RGB_stack</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/stack.html">stack</a></span><span class="op">(</span><span class="st">"images/HARV/RGB_Imagery/HARV_RGB_Ortho.tif"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create an RGB image from the raster stack</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>col.axis<span class="op">=</span><span class="st">"white"</span>,col.lab<span class="op">=</span><span class="st">"white"</span>,tck<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plotRGB.html">plotRGB</a></span><span class="op">(</span><span class="va">RGB_stack</span>, r <span class="op">=</span> <span class="fl">1</span>, g <span class="op">=</span> <span class="fl">2</span>, b <span class="op">=</span> <span class="fl">3</span>, </span>
+<span>        axes<span class="op">=</span><span class="cn">TRUE</span>, main<span class="op">=</span><span class="st">"Raster With NoData Values\nRendered in Black"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="05-Raster_files/figure-html/unnamed-chunk-9-1.png" width="672"></div>
+<p>In the next image, the black edges have been assigned <code>NoDataValue</code>. R doesn’t render pixels that contain a specified <code>NoDataValue</code>. R assigns missing data with the <code>NoDataValue</code> as <code>NA</code>.</p>
+<div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># reassign cells with 0,0,0 to NA</span></span>
+<span><span class="co"># this is simply demonstration code - we will not teach this.</span></span>
+<span><span class="va">func</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/rowSums.html">rowSums</a></span><span class="op">(</span><span class="va">x</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">==</span> <span class="fl">3</span>, <span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
+<span>  <span class="va">x</span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">RGB_stack</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/stack.html">stack</a></span><span class="op">(</span><span class="st">"images/HARV/RGB_Imagery/HARV_RGB_Ortho.tif"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">newRGBImage</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/calc.html">calc</a></span><span class="op">(</span><span class="va">RGB_stack</span>, <span class="va">func</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>col.axis<span class="op">=</span><span class="st">"white"</span>,col.lab<span class="op">=</span><span class="st">"white"</span>,tck<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
+<span><span class="co"># Create an RGB image from the raster stack</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plotRGB.html">plotRGB</a></span><span class="op">(</span><span class="va">newRGBImage</span>, r <span class="op">=</span> <span class="fl">1</span>, g <span class="op">=</span> <span class="fl">2</span>, b <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>        axes<span class="op">=</span><span class="cn">TRUE</span>, main<span class="op">=</span><span class="st">"Raster With No Data Values\nNoDataValue= NA"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="05-Raster_files/figure-html/unnamed-chunk-10-1.png" width="672"></div>
+<p>The assigned <code>NoDataValue</code> varies across disciplines; <code>-9999</code> is a common value used in both the remote sensing field and the atmospheric fields. It is also the standard used by the <a href="https://www.neonscience.org/">National Ecological Observatory Network (NEON)</a>.</p>
+<p>If we are lucky, our GeoTIFF file has a tag that tells us what is the <code>NoDataValue</code>. If we are less lucky, we can find that information in the raster’s metadata. If a <code>NoDataValue</code> was stored in the GeoTIFF tag, when R opens up the raster, it will assign each instance of the value to <code>NA</code>. Values of <code>NA</code> will be ignored by R as demonstrated above.</p>
+</div>
+<div id="bad-data-values-in-rasters" class="section level2" number="5.16">
+<h2>
+<span class="header-section-number">5.16</span> Bad Data Values in Rasters<a class="anchor" aria-label="anchor" href="#bad-data-values-in-rasters"><i class="fas fa-link"></i></a>
+</h2>
+<p>Bad data values are different from <code>NoDataValue</code>s. Bad data values are values that fall outside of the applicable range of a dataset.</p>
+<p>Examples of Bad Data Values:</p>
+<ul>
+<li><p>The normalized difference vegetation index (NDVI), which is a measure of greenness, has a valid range of -1 to 1. Any value outside of that range would be considered a “bad” or miscalculated value.</p></li>
+<li><p>Reflectance data in an image will often range from 0-1 or 0-10,000 depending upon how the data are scaled. Thus a value greater than 1 or greater than 10,000 is likely caused by an error in either data collection or processing.</p></li>
+</ul>
+<div id="find-bad-data-values" class="section level3" number="5.16.1">
+<h3>
+<span class="header-section-number">5.16.1</span> Find Bad Data Values<a class="anchor" aria-label="anchor" href="#find-bad-data-values"><i class="fas fa-link"></i></a>
+</h3>
+<p>Sometimes a raster’s metadata will tell us the range of expected values for a raster. Values outside of this range are suspect and we need to consider than when we analyze the data. Sometimes, we need to use some common sense and scientific insight as we examine the data - just as we would for field data to identify questionable values.</p>
+</div>
+</div>
+<div id="create-a-histogram-of-raster-values" class="section level2" number="5.17">
+<h2>
+<span class="header-section-number">5.17</span> Create A Histogram of Raster Values<a class="anchor" aria-label="anchor" href="#create-a-histogram-of-raster-values"><i class="fas fa-link"></i></a>
+</h2>
+<p>We can explore the distribution of values contained within our raster using the <code><a href="https://rdrr.io/r/graphics/hist.html">hist()</a></code> function which produces a histogram. Histograms are often useful in identifying outliers and bad data values in our raster data.</p>
+<div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">DSM_HARV</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html">raster</a></span><span class="op">(</span><span class="st">"images/HARV/DSM/HARV_dsmCrop.tif"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># View the total number of pixels (cells) in is our raster </span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/dimensions.html">ncell</a></span><span class="op">(</span><span class="va">DSM_HARV</span><span class="op">)</span></span></code></pre></div>
+<pre><code>[1] 2319799</code></pre>
+<div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># create histogram that includes with all pixel values in the raster</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">DSM_HARV</span>, </span>
+<span>     maxpixels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/dimensions.html">ncell</a></span><span class="op">(</span><span class="va">DSM_HARV</span><span class="op">)</span>,</span>
+<span>     main<span class="op">=</span><span class="st">"Distribution of DSM Values\n All Pixel Values Included\n NEON Harvard Forest Field Site"</span>,</span>
+<span>     xlab<span class="op">=</span><span class="st">"DSM Elevation Value (m)"</span>,</span>
+<span>     ylab<span class="op">=</span><span class="st">"Frequency"</span>,</span>
+<span>     col<span class="op">=</span><span class="st">"wheat4"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="05-Raster_files/figure-html/raster_hist-1.png" width="672"></div>
+</div>
+<div id="raster-bands" class="section level2" number="5.18">
+<h2>
+<span class="header-section-number">5.18</span> Raster Bands<a class="anchor" aria-label="anchor" href="#raster-bands"><i class="fas fa-link"></i></a>
+</h2>
+<p>The Digital Surface Model object (DSM_HARV) that we’ve been working with is a single band raster. This means that there is only one dataset stored in the raster: surface elevation in meters for one time period.</p>
+<div class="inline-figure"><img src="fig/single_multi_raster.png" width="50%" style="display: block; margin: auto;"></div>
+<p>A raster dataset can contain one or more bands. We can use the <code><a href="https://rdrr.io/pkg/raster/man/raster.html">raster()</a></code> function to import one single band from a single OR multi-band raster. We can view the number of bands in a raster using the <code><a href="https://rdrr.io/pkg/raster/man/nlayers.html">nlayers()</a></code> function.</p>
+<div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">DSM_HARV</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html">raster</a></span><span class="op">(</span><span class="st">"images/HARV/DSM/HARV_dsmCrop.tif"</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># view number of bands</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/nlayers.html">nlayers</a></span><span class="op">(</span><span class="va">DSM_HARV</span><span class="op">)</span></span></code></pre></div>
+<pre><code>[1] 1</code></pre>
+<p>However, raster data can also be multi-band meaning that one raster file contains data for more than one variable or time period for each cell. By default the <code><a href="https://rdrr.io/pkg/raster/man/raster.html">raster()</a></code> function only imports the first band in a raster regardless of whether it has one or more bands.</p>
+</div>
+<div id="view-raster-file-attributes" class="section level2" number="5.19">
+<h2>
+<span class="header-section-number">5.19</span> View Raster File Attributes<a class="anchor" aria-label="anchor" href="#view-raster-file-attributes"><i class="fas fa-link"></i></a>
+</h2>
+<p>Remember that a <code>GeoTIFF</code> contains a set of embedded tags that contain metadata about the raster. So far, we’ve explored raster metadata <strong>after</strong> importing it in R. However, we can use the <code>GDALinfo("path-to-raster-here")</code> function to view raster metadata before we open a file in R.</p>
+<div class="sourceCode" id="cb134"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># view attributes before opening file</span></span>
+<span><span class="fu"><a href="http://rgdal.r-forge.r-project.org/reference/readGDAL.html">GDALinfo</a></span><span class="op">(</span><span class="st">"images/HARV/DSM/HARV_dsmCrop.tif"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>rows        1367 
+columns     1697 
+bands       1 
+lower left origin.x        731453 
+lower left origin.y        4712471 
+res.x       1 
+res.y       1 
+ysign       -1 
+oblique.x   0 
+oblique.y   0 
+driver      GTiff 
+projection  +proj=utm +zone=18 +datum=WGS84 +units=m +no_defs 
+file        images/HARV/DSM/HARV_dsmCrop.tif 
+apparent band summary:
+   GDType hasNoDataValue NoDataValue blockSize1 blockSize2
+1 Float64           TRUE       -9999          1       1697
+apparent band statistics:
+    Bmin   Bmax    Bmean      Bsd
+1 305.07 416.07 359.8531 17.83169
+Metadata:
+AREA_OR_POINT=Area </code></pre>
+<p>Notice a few things in the output:</p>
+<ol style="list-style-type: decimal">
+<li><p>A projection is described using a string in the <code>proj4</code> format : <code>+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs</code></p></li>
+<li><p>We can identify a <code>NoDataValue</code>: -9999</p></li>
+<li><p>We can tell how many <code>bands</code> the file contains: 1</p></li>
+<li><p>We can view the x and y <code>resolution</code> of the data: 1</p></li>
+<li><p>We can see the min and max values of the data: <code>Bmin</code> and <code>Bmax</code>.</p></li>
+</ol>
+<p>It is ideal to use <code>GDALinfo</code> to explore your file <strong>before</strong> reading it into R.</p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="lecture4.html"><span class="header-section-number">4</span> Basic GIS Operations</a></div>
+<div class="next"><a href="introduction-to-kernel-density-estimation.html"><span class="header-section-number">6</span> Introduction to Kernel Density Estimation</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#introduction-to-raster-in-r"><span class="header-section-number">5</span> Introduction to Raster in R</a></li>
+<li><a class="nav-link" href="#what-are-we-doing-today"><span class="header-section-number">5.1</span> What are we doing today:</a></li>
+<li><a class="nav-link" href="#learning-objectives"><span class="header-section-number">5.2</span> Learning Objectives</a></li>
+<li>
+<a class="nav-link" href="#things-youll-need-to-complete-this-tutorial"><span class="header-section-number">5.3</span> Things You’ll Need To Complete This Tutorial</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#install-r-packages"><span class="header-section-number">5.3.1</span> Install R Packages</a></li>
+<li><a class="nav-link" href="#download-data"><span class="header-section-number">5.3.2</span> Download Data</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#about-raster-data"><span class="header-section-number">5.4</span> About Raster Data</a></li>
+<li><a class="nav-link" href="#raster-data-in-r"><span class="header-section-number">5.5</span> Raster Data in R</a></li>
+<li><a class="nav-link" href="#open-a-raster-in-r"><span class="header-section-number">5.6</span> Open a Raster in R</a></li>
+<li><a class="nav-link" href="#types-of-data-stored-in-raster-format"><span class="header-section-number">5.7</span> Types of Data Stored in Raster Format</a></li>
+<li><a class="nav-link" href="#what-is-a-geotiff"><span class="header-section-number">5.8</span> What is a GeoTIFF??</a></li>
+<li><a class="nav-link" href="#coordinate-reference-system"><span class="header-section-number">5.9</span> Coordinate Reference System</a></li>
+<li><a class="nav-link" href="#what-makes-spatial-data-line-up-on-a-map"><span class="header-section-number">5.10</span> What Makes Spatial Data Line Up On A Map?</a></li>
+<li><a class="nav-link" href="#view-raster-coordinate-reference-system-crs-in-r"><span class="header-section-number">5.11</span> View Raster Coordinate Reference System (CRS) in R</a></li>
+<li><a class="nav-link" href="#extent"><span class="header-section-number">5.12</span> Extent</a></li>
+<li><a class="nav-link" href="#resolution"><span class="header-section-number">5.13</span> Resolution</a></li>
+<li><a class="nav-link" href="#calculate-raster-min-and-max-values"><span class="header-section-number">5.14</span> Calculate Raster Min and Max Values</a></li>
+<li><a class="nav-link" href="#nodata-values-in-rasters"><span class="header-section-number">5.15</span> NoData Values in Rasters</a></li>
+<li>
+<a class="nav-link" href="#bad-data-values-in-rasters"><span class="header-section-number">5.16</span> Bad Data Values in Rasters</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#find-bad-data-values"><span class="header-section-number">5.16.1</span> Find Bad Data Values</a></li></ul>
+</li>
+<li><a class="nav-link" href="#create-a-histogram-of-raster-values"><span class="header-section-number">5.17</span> Create A Histogram of Raster Values</a></li>
+<li><a class="nav-link" href="#raster-bands"><span class="header-section-number">5.18</span> Raster Bands</a></li>
+<li><a class="nav-link" href="#view-raster-file-attributes"><span class="header-section-number">5.19</span> View Raster File Attributes</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/Enpeterson/INFO532/blob//05-Raster.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/Enpeterson/INFO532/edit//05-Raster.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>INFO 532: Advanced GIS</strong>" was written by Emily Peterson &amp; Alex Edwards. It was last built on Last updated: 2023-10-16.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

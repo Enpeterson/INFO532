@@ -1,0 +1,21 @@
+book_filename: "INFO532: Advanced GIS"
+repo: https://github.com/Enpeterson/INFO532
+output_dir: docs
+language:
+  label:
+    fig: "FIGURE "
+    tab: "TABLE "
+  ui:
+    chapter_name: "Module "
+delete_merged_file: true
+new_session: true
+before_chapter_script: "common.R"
+rmd_files: [
+  "index.Rmd",
+  "01-introGIS.Rmd",
+  "02-introR.Rmd",
+  "03-datawrangling.Rmd",
+  "04-BasicGIS.Rmd",
+  "05-Raster.Rmd",
+  "06-KDE.Rmd"
+]
